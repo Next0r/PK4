@@ -1,0 +1,3 @@
+﻿  zad_rtti2.cpp
+d:\users\mchka\documents\github\pk4\zad_rtti_2\zad_rtti2\zad_rtti2\zad_rtti2.cpp(108): warning C4244: "inicjowanie": konwersja z "int" do "float", możliwa utrata danych
+  zad_rtti2.vcxproj -> D:\Users\mchka\Documents\GitHub\PK4\zad_rtti_2\zad_rtti2\Debug\zad_rtti2.exe
