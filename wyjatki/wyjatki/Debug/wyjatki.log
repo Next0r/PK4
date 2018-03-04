@@ -1,0 +1,23 @@
+﻿  wyjatki.cpp
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(99): warning C4286: 'AwariaSilnika &': is caught by base class ('AwariaSamochodu &') on line 96
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(102): warning C4286: 'AwariaSwiecy &': is caught by base class ('AwariaSamochodu &') on line 96
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(102): warning C4286: 'AwariaSwiecy &': is caught by base class ('AwariaSilnika &') on line 99
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(157): warning C4286: 'AwariaSwiecy &': is caught by base class ('AwariaSilnika &') on line 148
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(157): warning C4286: 'AwariaSwiecy &': is caught by base class ('AwariaSamochodu &') on line 151
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(96): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(99): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(102): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(114): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(119): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(124): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(148): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(151): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(154): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(157): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(185): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(188): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(191): warning C4101: 'exception': unreferenced local variable
+d:\users\mchka\documents\github\pk4\wyjatki\wyjatki\wyjatki.cpp(194): warning C4101: 'exception': unreferenced local variable
+  wyjatki.vcxproj -> D:\Users\mchka\Documents\GitHub\PK4\wyjatki\Debug\wyjatki.exe
+  wyjatki.vcxproj -> D:\Users\mchka\Documents\GitHub\PK4\wyjatki\Debug\wyjatki.pdb (Full PDB)
