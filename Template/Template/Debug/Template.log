@@ -1,0 +1,5 @@
+﻿  Template.cpp
+d:\users\mchka\documents\github\pk4\template\template\template.cpp(117): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+d:\users\mchka\documents\github\pk4\template\template\template.cpp(117): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Template.vcxproj -> D:\Users\mchka\Documents\GitHub\PK4\Template\Debug\Template.exe
+  Template.vcxproj -> D:\Users\mchka\Documents\GitHub\PK4\Template\Debug\Template.pdb (Full PDB)
