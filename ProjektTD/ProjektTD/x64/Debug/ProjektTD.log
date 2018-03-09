@@ -1,0 +1,3 @@
+﻿  stdafx.cpp
+  ProjektTD.cpp
+d:\users\michal\documents\github\pk4\projekttd\projekttd\projekttd.cpp(5): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
