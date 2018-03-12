@@ -8,7 +8,7 @@
 using namespace std;
 
 //przeciazanie metod dla roznych typow
-class baza {
+class baza { // baza dla dwoch typow danych przechowywanych w tablicach
 private:
 	int size1;
 	int size2;
@@ -46,7 +46,7 @@ public:
 //klasa realizujaca te same zadaniania zbudowana za pomoca szablonu (brak koniecznosci przeciazania)
 
 template<typename t1>
-class b_dowolna {
+class b_dowolna { // klasa, ktora pozwala na przechowywanie wielu typow danych
 protected:
 	int size;
 	t1 *tablica;
@@ -71,7 +71,7 @@ public:
 // dziedziczenie po szablonie klasy, szablon z wieksza iloscia typow
 
 template <typename t1, typename t2>
-class b_dowolna2 : protected b_dowolna<t1> {
+class b_dowolna2 : protected b_dowolna<t1> { // przyklad dziedziczenia
 private:
 	int size2;
 	t2 *tablica2;
@@ -104,7 +104,7 @@ public:
 
 	// szablon metody, rezultat zalezny od typu danych
 	template<typename t2>
-	void pobierz(t2 zmienna) {
+	void pobierz(t2 zmienna) { // podmienianie danych w bazie danych w zaleznosci od typu
 		if (typeid(t2) == typeid(t1)) {
 			tablica[0] = zmienna;
 		}
