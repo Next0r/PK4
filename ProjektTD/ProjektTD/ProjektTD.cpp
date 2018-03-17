@@ -384,11 +384,24 @@ private:
 		}
 	}
 
+	bool test_ilosc_map() {
+		if (licznik_map > 20) {
+			cout << "Przekroczono ilosc mozliwych do zdefiniowania map" << endl;
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 public:
 
 	bool odczyt_pliku() { // odczytywanie pliku tekstowego mapy
 		otworz_plik();
 		while (!plik_mapy.eof()) { // puki plik sie nie skonczy
+			if (!test_ilosc_map()) { // uznanu za blad by nie oszukwiac gracza co do map, ktore nie istnieja - nie zostaly wczytane
+				return false;
+			}
 			if (!instrukcja_level()) { // sprawdzaj instrukcje level (wczytuje nazwe i tworzy obiekt mapy)
 				return false;
 			}
@@ -418,7 +431,6 @@ public:
 
 	mapy_wczytywanie_z_pliku(string sciezka_czytania1) {
 		sciezka_czytania = sciezka_czytania1;
-		//czytaj_plik();
 	}
 
 	~mapy_wczytywanie_z_pliku() { // destruktor - zwalnia pamiec zarezerwowana na informacje o mapach
