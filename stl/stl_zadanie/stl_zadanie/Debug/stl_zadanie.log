@@ -1,17 +1,17 @@
 ﻿  stl_zadanie.cpp
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(31): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(33): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(42): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(32): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(34): warning C4018: '<': signed/unsigned mismatch
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(43): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(50): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(44): warning C4018: '<': signed/unsigned mismatch
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(51): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(61): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(68): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(219): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(52): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(62): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(69): warning C4018: '<': signed/unsigned mismatch
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(220): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(221): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(222): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(223): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(116): warning C4715: 'Porownanie::operator()': not all control paths return a value
+d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(224): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(117): warning C4715: 'Porownanie::operator()': not all control paths return a value
   stl_zadanie.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\stl\stl_zadanie\Debug\stl_zadanie.exe

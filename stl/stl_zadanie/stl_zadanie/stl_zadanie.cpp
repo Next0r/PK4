@@ -17,6 +17,7 @@ using namespace std;
 default_random_engine eng(time(0));
 uniform_real_distribution<float> dist(1, 5);
 uniform_real_distribution<float> dist2(0, 999);
+
 class Macierz {
 private:
 	vector<vector <float>> macierz;
@@ -106,7 +107,7 @@ struct punkt {
 };
 
 struct Porownanie {
-	bool operator ()(const Zadanie &zad1, const Zadanie &zad2) {
+	bool operator ()(const Zadanie &zad1, const Zadanie &zad2) { // przeciazanie boole'a
 		if (zad1.czas > zad2.czas) {
 			return true;
 		}
@@ -118,7 +119,7 @@ struct Porownanie {
 
 class Dzien {
 private:
-	priority_queue<Zadanie, vector<Zadanie>, Porownanie> kol_p;
+	priority_queue<Zadanie, vector<Zadanie>, Porownanie> kol_p; // kolejka prioryteowa uklad wedlug porownania czasu
 public:
 	void dodaj_zadanie(int liczba, string slowo) {
 		Zadanie zadanie(liczba, slowo);
@@ -157,11 +158,11 @@ public:
 
 class Miasta {
 private:
-	map<string, punkt> mapa_miasta;	
+	map<string, punkt> mapa_miasta;	// mapa miast - naswa i punkt na mapie
 public:
 	void dodaj_miasto(string nazwa_miasta, int x, int y) {
 		punkt p1(x, y);
-		mapa_miasta.insert(make_pair(nazwa_miasta, p1));
+		mapa_miasta.insert(make_pair(nazwa_miasta, p1)); // dodawanie do mapy za pomoca make_pair
 	}
 
 	void odleglosc() {
