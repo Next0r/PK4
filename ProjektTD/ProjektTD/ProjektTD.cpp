@@ -11,6 +11,9 @@ using namespace std;
 
 //----------------------------------------------------TODO
 
+// zapisywanie informacji o wrogach do pamieci
+// debugger dla slow kluczowych MONEY dla mapy
+
 //class interface
 //	klasa zarzadzajaca interface'm uzytkownika 
 //	interakcja z poziomu klawiatury - byc moze osobna klasa do obslugi eventow zwracajaca cos w zaleznosci od typu?
@@ -71,6 +74,7 @@ using namespace std;
 // tak aby widoczyny byl numer slotu (na mapie), co ulatwi korzystanie ze sklepu
 // kanal alfa dla sciezki, powiekszenie spritea, renderowanie warstwe wyzej - tak aby utworzyc efekt przejscia miedzy innymi polami
 
+
 //----------------------------------------------------WCZYTYWANIE MAPY/KREATOR
 
 class baza_spriteow {
@@ -93,6 +97,8 @@ public:
 
 class map_info_tekstowe { // przechowuje dane dotyczace mapy
 public:
+	// wczytywanie informacji o pozycjach wiezy odbywa sie przy ladowaniu do pamieci
+
 	string nazwa = "";
 	string pola_pulapek[5] = { "" };
 	string zestaw_pol[9][16];
@@ -565,7 +571,7 @@ public:
 		}
 		else if (kodowanie_pola[0] == '#' && (kodowanie_pola[1] > 47 && kodowanie_pola[1] < 58)) { // wieza
 			// tmp przechowuje numer wiezy
-			tmp = (int)kodowanie_pola[1];
+			tmp = kodowanie_pola[1] - 48;
 			pola_mapy[y][x] = new pole_wiezy(x, y, sprite_pola);
 			pola_wiez[tmp] = pola_mapy[y][x];
 
