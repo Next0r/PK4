@@ -1,1 +1,4 @@
-﻿  ProjektTD.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\ProjektTD\Debug\ProjektTD.exe
+﻿  ProjektTD.cpp
+d:\users\michal\documents\github\pk4\projekttd\projekttd\projekttd.cpp(14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\projekttd.cpp(475): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  ProjektTD.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\ProjektTD\Debug\ProjektTD.exe

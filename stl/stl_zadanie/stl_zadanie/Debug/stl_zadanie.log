@@ -1,4 +1,5 @@
-﻿  stl_zadanie.cpp
+﻿  stdafx.cpp
+  stl_zadanie.cpp
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(32): warning C4018: '<': signed/unsigned mismatch
 d:\users\michal\documents\github\pk4\stl\stl_zadanie\stl_zadanie\stl_zadanie.cpp(34): warning C4018: '<': signed/unsigned mismatch

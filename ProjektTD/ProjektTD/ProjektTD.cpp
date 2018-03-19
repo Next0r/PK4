@@ -6,8 +6,15 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <random>
+#include <time.h>
 
 using namespace std;
+
+default_random_engine random_eng(time(0));
+uniform_int_distribution<int> distr(0, 1);
+uniform_int_distribution<int> distr2(0, 3);
+
 
 //----------------------------------------------------TODO
 
@@ -477,10 +484,24 @@ public:
 };
 
 class trawa :public pole {
+private:
+	void losuj_mapping() {
+		int tmp = distr(random_eng);
+		switch (tmp)
+		{
+		case 0:
+			pos_x_tex = 0; // pozycja x na teksturze
+			pos_y_tex = 0; // pozycja y na teksturze
+			break;
+		case 1:
+			pos_x_tex = 80; // pozycja x na teksturze
+			pos_y_tex = 0; // pozycja y na teksturze
+			break;
+		}	
+	}
 public:
 	trawa(int x1, int y1, sf::Sprite sprite1) : pole(x1, y1, sprite1) { // nadawanie pozycji pola przy konstukcji
-		pos_x_tex = 0; // pozycja x na teksturze
-		pos_y_tex = 0; // pozycja y na teksturze
+		losuj_mapping();
 		mapuj_teksture_dla_pola(); // nadawanie tekstury przy kostrukcji pola
 		przesun_pole();
 	}
