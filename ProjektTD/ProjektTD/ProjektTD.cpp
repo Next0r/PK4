@@ -18,6 +18,7 @@ uniform_int_distribution<int> distr2(0, 3);
 
 //----------------------------------------------------TODO
 
+// zmiana nazw klas
 // zapisywanie informacji o wrogach do pamieci
 // debugger dla slow kluczowych MONEY dla mapy
 

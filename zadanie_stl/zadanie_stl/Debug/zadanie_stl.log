@@ -1,0 +1,17 @@
+﻿  zadanie_stl.cpp
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(31): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(33): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(42): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(43): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(50): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(51): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(61): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(68): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(217): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(218): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(219): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(220): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(221): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\zadanie_stl\zadanie_stl\zadanie_stl.cpp(117): warning C4715: 'Porownanie::operator()': not all control paths return a value
+  zadanie_stl.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\zadanie_stl\Debug\zadanie_stl.exe
