@@ -1,4 +1,5 @@
-﻿  ProjektTD.cpp
-d:\users\michal\documents\github\pk4\projekttd\projekttd\projekttd.cpp(14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\projekttd.cpp(475): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Gra.cpp
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\wczytywaniemapy.h(81): warning C4715: 'Plik_map::otworz_plik': not all control paths return a value
+d:\users\michal\documents\github\pk4\projekttd\projekttd\wczytywaniemapy.h(254): warning C4715: 'Plik_map::czytaj_plik': not all control paths return a value
   ProjektTD.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\ProjektTD\Debug\ProjektTD.exe

@@ -24,12 +24,24 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Baza.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WczytywanieMapy.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RysowaneObiekty.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Uklady.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProjektTD.cpp">
+    <ClCompile Include="Gra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
