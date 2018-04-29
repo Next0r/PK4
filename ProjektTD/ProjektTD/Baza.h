@@ -28,6 +28,9 @@
 #define WYMIAR_EKRANU_X  1280
 #define WYMIAR_EKRANU_Y  720
 
+#define ILOSC_UKLADOW 8
+#define ILOSC_KLAWISZY 13 // ilosc przyciskow zmapowanych w grze
+
 
 
 using namespace std;

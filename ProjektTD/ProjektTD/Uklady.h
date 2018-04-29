@@ -40,42 +40,31 @@ public:
 	map<string, sf::Sprite> zwroc_uklad() {
 		return zestaw_spriteow;
 	}
-
-	void nacisnij_przycisk(string nazwa_przycisku) {
+	void nacisnij_przywroc_przycisk(string nazwa_przycisku, int flaga_akcji) {
 		string id_pelne = id_przycisku + nazwa_przycisku;
 		auto tmp_el = zestaw_spriteow.find(id_pelne);
 		if (tmp_el != zestaw_spriteow.end()) {
-			int wymiar_x = tmp_el->second.getTextureRect().width;
-			int wymiar_y = tmp_el->second.getTextureRect().height;
 			int pos_y = tmp_el->second.getTextureRect().top;
-			mapuj_sprite(wymiar_x, wymiar_y, wymiar_x, pos_y, tmp_el->second);
-		}
-	}
-
-	void przywroc_przycisk(string nazwa_przycisku) {
-		string id_pelne = id_przycisku + nazwa_przycisku;
-		auto tmp_el = zestaw_spriteow.find(id_pelne);
-		if (tmp_el != zestaw_spriteow.end()) {
-			int wymiar_x = tmp_el->second.getTextureRect().width;
-			int wymiar_y = tmp_el->second.getTextureRect().height;
-			int pos_y = tmp_el->second.getTextureRect().top;
-			mapuj_sprite(wymiar_x, wymiar_y, 0, pos_y, tmp_el->second);
-		}
-	}
-
-	void przewin_strone(int kierunek) {
-		if (zestaw_spriteow.find(id_pola_tekstowego) != zestaw_spriteow.end()) {
-			if (kierunek > 0) {
-				if(zestaw_spriteow.find(id_pola_tekstowego)->second.getTextureRect().top < strona_y*3)
-				mapuj_sprite(strona_x, strona_y, 0, zestaw_spriteow.find(id_pola_tekstowego)->second.getTextureRect().top + strona_y, zestaw_spriteow.find(id_pola_tekstowego)->second);
+			if (flaga_akcji == 0) {
+				mapuj_sprite(przycisk_x, przycisk_y, przycisk_x, pos_y, tmp_el->second);
 			}
 			else {
-				if(zestaw_spriteow.find(id_pola_tekstowego)->second.getTextureRect().top >= strona_y)
-				mapuj_sprite(strona_x, strona_y, 0, zestaw_spriteow.find(id_pola_tekstowego)->second.getTextureRect().top - strona_y, zestaw_spriteow.find(id_pola_tekstowego)->second);
+				mapuj_sprite(przycisk_x, przycisk_y, 0, pos_y, tmp_el->second);
+			}			
+		}
+	}
+	void przewin_strone(int kierunek) {
+		auto tmp_el = zestaw_spriteow.find(id_pola_tekstowego);
+		if (tmp_el != zestaw_spriteow.end()) {
+			int pos_y = tmp_el->second.getTextureRect().top;
+			if (kierunek > 0 && zestaw_spriteow.find(id_pola_tekstowego)->second.getTextureRect().top < strona_y * 3) {
+				mapuj_sprite(strona_x, strona_y, 0, pos_y + strona_y, tmp_el->second);
+			}
+			else if (kierunek <= 0 && zestaw_spriteow.find(id_pola_tekstowego)->second.getTextureRect().top >= strona_y) {
+				mapuj_sprite(strona_x, strona_y, 0, pos_y - strona_y, tmp_el->second);
 			}
 		}
 	}
-
 };
 
 class UkladInfo : public Uklad {
@@ -154,12 +143,9 @@ public:
 class ManagerUkladow {
 private:
 
-	int aktualny_uklad = 0;
-	static const int ilosc_ukladow = 8;
-	static const int ilosc_klawiszy = 13;
 	Uklad *uklad_tmp;
-	Uklad *zestaw_ukladow[ilosc_ukladow];
-	
+	Uklad *zestaw_ukladow[ILOSC_UKLADOW];
+
 	// mapa ukladow:
 	// nr      |   0  |   1  |    2     |     3    |     4      |     5      |  6   |   7  |
 	// klawisz | menu | shop | buy turr | buy trap | chose turr | chose trap | game | info |
@@ -177,24 +163,7 @@ private:
 	// E    11 |      |      |          |          |            |            |   0  |      |
 	// B    12 |      |   0  |    1     |    1     |      2     |      3     |      |   0  |
 
-	//para <uklad docelowy/akcja (akcje oznaczone warosciami ujemnymi), nazwa>
-	pair<int,string> mapa_ukladow[ilosc_klawiszy][ilosc_ukladow] =
-	{
-		{ { 1,"strt" },{ 2,"null" },{ 4,"null" },{ 5,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ -2,"prev" } },
-		{ { 1,"cont" },{ 5,"null" },{ 4,"null" },{ 5,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ -1,"next" } },
-		{ { 7,"info" },{ 0,"null" },{ 4,"null" },{ 5,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"quit" },{ 0,"null" },{ 4,"null" },{ 5,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"null" },{ 4,"null" },{ 5,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 6,"null" },{ 6,"null" },{ 6,"null" },{ 6,"null" },{ 6,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"null" },{ 1,"null" },{ 1,"null" },{ 2,"null" },{ 3,"null" },{ 0,"null" },{ 0,"back" } },
-	};
-
+	// wczytywanie wszystkich mozliwych ukladow interfaceu
 	void wczytaj_uklady(RysowaneObiekty *&baza_ob) {
 		uklad_tmp = new UkladMenu(baza_ob);
 		zestaw_ukladow[0] = uklad_tmp;
@@ -206,47 +175,17 @@ public:
 	ManagerUkladow(RysowaneObiekty *&baza_obiektow) {
 		wczytaj_uklady(baza_obiektow);
 	}
-
-	map<string, sf::Sprite> zwroc_uklad() {
-		return zestaw_ukladow[aktualny_uklad]->zwroc_uklad();
+	map<string, sf::Sprite> zwroc_uklad(int index_ukladu) {
+		return zestaw_ukladow[index_ukladu]->zwroc_uklad();
 	}
-	void animuj_przycisk_ukladu(int kod_klawisza) {
-		
-		// klikniecie przycisku
-		string nazwa_przycisku = mapa_ukladow[kod_klawisza][aktualny_uklad].second;
-		zestaw_ukladow[aktualny_uklad]->nacisnij_przycisk(nazwa_przycisku);
+	void nacisnij_przycisk_w_ukladzie(string nazwa_przycisku, int index_ukladu) {		
+		zestaw_ukladow[index_ukladu]->nacisnij_przywroc_przycisk(nazwa_przycisku, 0);
 	}
-
-	void zmien_modyfikuj_uklad(int kod_klawisza) {
-		// "odklikniecie" przycisku
-		int nr_przycisku_akcji = mapa_ukladow[kod_klawisza][aktualny_uklad].first;
-		string nazwa_przycisku = mapa_ukladow[kod_klawisza][aktualny_uklad].second;
-
+	void przywroc_przycisk_w_ukladzie(string nazwa_przycisku, int index_ukladu) {
 		// ---- zapewne trzeba bedzie przywrocic wszystkie przyciski w ukladzie
-		zestaw_ukladow[aktualny_uklad]->przywroc_przycisk(nazwa_przycisku);
-		
-		if (nr_przycisku_akcji >= 0) {
-			// zmiana ukladu
-			aktualny_uklad = mapa_ukladow[kod_klawisza][aktualny_uklad].first;
-		}
-		else {
-			// wykonaj modyfikacje w ukladzie - np. przewin strone
-			switch (nr_przycisku_akcji)
-			{
-			case -1:
-			{
-				zestaw_ukladow[aktualny_uklad]->przewin_strone(1);
-				break;
-			}
-			case -2:
-			{
-				zestaw_ukladow[aktualny_uklad]->przewin_strone(-1);
-				break;
-			}
-			default:
-				break;
-			}
-		}
+		zestaw_ukladow[index_ukladu]->nacisnij_przywroc_przycisk(nazwa_przycisku, 1);
 	}
-
+	void przewin_strone_w_ukladzie(int index_ukladu, int kierunek) {
+		zestaw_ukladow[index_ukladu]->przewin_strone(kierunek);
+	}
 };
