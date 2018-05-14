@@ -1,0 +1,8 @@
+﻿  wyr_reg_01.cpp
+d:\users\michal\documents\github\pk4\wyr_reg_01\wyr_reg_01\wyr_reg_01.cpp(41): warning C4129: '.': unrecognized character escape sequence
+d:\users\michal\documents\github\pk4\wyr_reg_01\wyr_reg_01\wyr_reg_01.cpp(90): warning C4018: '>': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\wyr_reg_01\wyr_reg_01\wyr_reg_01.cpp(45): warning C4390: ';': empty controlled statement found; is this the intent?
+d:\users\michal\documents\github\pk4\wyr_reg_01\wyr_reg_01\wyr_reg_01.cpp(50): warning C4390: ';': empty controlled statement found; is this the intent?
+d:\users\michal\documents\github\pk4\wyr_reg_01\wyr_reg_01\wyr_reg_01.cpp(55): warning C4390: ';': empty controlled statement found; is this the intent?
+d:\users\michal\documents\github\pk4\wyr_reg_01\wyr_reg_01\wyr_reg_01.cpp(60): warning C4390: ';': empty controlled statement found; is this the intent?
+  wyr_reg_01.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\wyr_reg_01\Debug\wyr_reg_01.exe

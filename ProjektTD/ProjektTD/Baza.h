@@ -18,6 +18,7 @@
 #define SCIEZKA_PLIK_TX_POLA  "Textures/fields.png"
 #define SCIEZKA_PLIK_TX_OBIEKTY  "Textures/objs.png"
 #define SCIEZKA_PLIK_TX_TEKST  "Textures/tekst.png"
+#define SCIEZKA_KROJ_TEKSTU  "Fonts/joystix_monospace.ttf"
 
 #define ZDEFINIOWANA_ILOSC_FAL_WROGOW  5
 #define MAX_ILOSC_WROGOW_W_FALI  10
@@ -30,6 +31,12 @@
 
 #define ILOSC_UKLADOW 8
 #define ILOSC_KLAWISZY 13 // ilosc przyciskow zmapowanych w grze
+
+#define ILOSC_TYPOW_WIEZ 3
+#define ILOSC_TYPOW_PULAPEK 3
+
+#define WYMIAR_POLA_GRY 80
+#define MAX_ROZMIAR_SCIEZKI 100
 
 
 
