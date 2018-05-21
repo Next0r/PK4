@@ -7,18 +7,22 @@ using namespace std;
 class Uklad {
 protected:
 
-	static const int rozmiar_pola_liczby = 4;
+	static const int rozmiar_pola_liczby = DLUGOSC_POLA_LICZBOWEGO;
 
 	sf::Sprite el_ukladu;
 
-	int odstep_el = 20;
-	int przycisk_x = 250;
-	int przycisk_y = 50;
-	int strona_x = 540;
-	int strona_y = 285;
-	int sklep_x = 400;
-	int cyfra_y = 50;
-	int cyfra_x = 40;
+	const int odstep_el = 20;
+	const int przycisk_x = 250;
+	const int przycisk_y = 50;
+
+	const int m_przycisk_x = 50;
+	const int m_przycisk_y = 50;
+
+	const int strona_x = 540;
+	const int strona_y = 285;
+	const int sklep_x = 400;
+	const int cyfra_y = 50;
+	const int cyfra_x = 40;
 
 	string id_tla = "1bg";
 	string id_przycisku = "2b";
@@ -28,8 +32,6 @@ protected:
 	// liczba na poczatku oznacza kolejnosc renderowania el
 	map<string, sf::Sprite> zestaw_spriteow;
 	// identyfikatory: bg, b_<nazwa>, p_text itp
-
-	
 
 	void mapuj_sprite(int wymiar_x, int wymiar_y, int pos_x, int pos_y, sf::Sprite &mapowany) {
 		mapowany.setTextureRect(sf::IntRect(pos_x, pos_y, wymiar_x, wymiar_y));
@@ -62,11 +64,15 @@ public:
 		auto tmp_el = zestaw_spriteow.find(id_pelne);
 		if (tmp_el != zestaw_spriteow.end()) {
 			int pos_y = tmp_el->second.getTextureRect().top;
+
+			int wym_x = tmp_el->second.getTextureRect().width; // szerokosc aktualnie naciskanego przycisku
+			int wym_y = tmp_el->second.getTextureRect().height; // wysokosc aktualnie naciskanego przycisku
+
 			if (flaga_akcji == 0) {
-				mapuj_sprite(przycisk_x, przycisk_y, przycisk_x, pos_y, tmp_el->second);
+				mapuj_sprite(wym_x, wym_y, wym_x, pos_y, tmp_el->second);
 			}
 			else {
-				mapuj_sprite(przycisk_x, przycisk_y, 0, pos_y, tmp_el->second);
+				mapuj_sprite(wym_x, wym_y, 0, pos_y, tmp_el->second);
 			}			
 		}
 	}
@@ -82,7 +88,7 @@ public:
 			}
 		}
 	}
-	virtual void ustaw_przyciski_sklepu(int ilosc_przyciskow) {};
+	virtual void ustaw_zestaw_przyciskow(int ilosc_przyciskow, vector<int> typy_przyciskow) {};
 	virtual void ustaw_wartosc_pola_liczbowego(string liczba) {
 		if (liczba.size() != rozmiar_pola_liczby) {
 			return;
@@ -99,7 +105,7 @@ public:
 	}
 };
 
-class UkladWybierzWieze : public Uklad {
+class UkladTypyWieze : public Uklad {
 private:
 	RysowaneObiekty *baza_obiektow;
 	void buduj_uklad(RysowaneObiekty *&baza_ob) {
@@ -129,11 +135,11 @@ private:
 		dodaj_pole_cyfry(baza_obiektow, 3);
 	}
 public:
-	UkladWybierzWieze(RysowaneObiekty *&baza_obiektow) {
+	UkladTypyWieze(RysowaneObiekty *&baza_obiektow) {
 		buduj_uklad(baza_obiektow);
 	}
 	// b_slot
-	void ustaw_przyciski_sklepu(int ilosc) {
+	void ustaw_zestaw_przyciskow(int ilosc, vector<int>) {
 		for (int i = 0; i < ilosc; i++) {
 			el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
 			mapuj_sprite(przycisk_x, przycisk_y, 0, 450 + i*przycisk_y, el_ukladu);
@@ -143,7 +149,7 @@ public:
 	}
 };
 
-class UkladKupWieze : public Uklad {
+class UkladSlotyWieze : public Uklad {
 private:
 	RysowaneObiekty *baza_obiektow;
 	void buduj_uklad(RysowaneObiekty *&baza_ob) {
@@ -161,7 +167,7 @@ private:
 		el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
 		mapuj_sprite(przycisk_x, przycisk_y, 0, 300, el_ukladu);
 		ustaw_sprite(WYMIAR_EKRANU_X - przycisk_x * 2 - odstep_el * 2, odstep_el, el_ukladu);
-		zestaw_spriteow.insert(make_pair(id_przycisku + "back", el_ukladu));	
+		zestaw_spriteow.insert(make_pair(id_przycisku + "back", el_ukladu));
 		// pole_liczbowe
 		// num0
 		dodaj_pole_cyfry(baza_obiektow, 0);
@@ -174,12 +180,100 @@ private:
 	}
 
 public:
-	UkladKupWieze(RysowaneObiekty *&baza_obiektow) {
+	UkladSlotyWieze(RysowaneObiekty *&baza_obiektow) {
 		buduj_uklad(baza_obiektow);
 	}
 
 	// b_slot
-	void ustaw_przyciski_sklepu(int ilosc) {
+	void ustaw_zestaw_przyciskow(int ilosc, vector<int>) {
+		for (int i = 0; i < ilosc; i++) {
+			el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
+			mapuj_sprite(przycisk_x, przycisk_y, 0, 800 + i*przycisk_y, el_ukladu);
+			ustaw_sprite((sklep_x - przycisk_x) / 2, odstep_el + i*(przycisk_y + odstep_el), el_ukladu);
+			zestaw_spriteow.insert(make_pair(id_przycisku + "slt" + to_string(i), el_ukladu));
+		}
+	}
+};
+
+class UkladTypyPulapki :public Uklad {
+private:
+	RysowaneObiekty *baza_obiektow;
+	void buduj_uklad(RysowaneObiekty *&baza_ob) {
+		baza_obiektow = baza_ob;
+		// wczytywanie tla
+		el_ukladu = baza_obiektow->zwroc_sprite_tlo();
+		mapuj_sprite(sklep_x, WYMIAR_EKRANU_Y, 1280, 0, el_ukladu);
+		zestaw_spriteow.insert(make_pair(id_tla, el_ukladu));
+		// b_start
+		el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
+		mapuj_sprite(przycisk_x, przycisk_y, 0, 600, el_ukladu);
+		ustaw_sprite(WYMIAR_EKRANU_X - przycisk_x - odstep_el, odstep_el, el_ukladu);
+		zestaw_spriteow.insert(make_pair(id_przycisku + "strt", el_ukladu));
+		// b_back
+		el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
+		mapuj_sprite(przycisk_x, przycisk_y, 0, 300, el_ukladu);
+		ustaw_sprite(WYMIAR_EKRANU_X - przycisk_x * 2 - odstep_el * 2, odstep_el, el_ukladu);
+		zestaw_spriteow.insert(make_pair(id_przycisku + "back", el_ukladu));
+		// pole_liczbowe
+		// num0
+		dodaj_pole_cyfry(baza_obiektow, 0);
+		// num1
+		dodaj_pole_cyfry(baza_obiektow, 1);
+		// num2
+		dodaj_pole_cyfry(baza_obiektow, 2);
+		// num3
+		dodaj_pole_cyfry(baza_obiektow, 3);
+	}
+public:
+	UkladTypyPulapki(RysowaneObiekty *&baza_obiektow) {
+		buduj_uklad(baza_obiektow);
+	}
+	// b_slot
+	void ustaw_zestaw_przyciskow(int ilosc, vector<int>) {
+		for (int i = 0; i < ilosc; i++) {
+			el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
+			mapuj_sprite(przycisk_x, przycisk_y, 0, 450 + i*przycisk_y, el_ukladu);
+			ustaw_sprite((sklep_x - przycisk_x) / 2, odstep_el + i*(przycisk_y + odstep_el), el_ukladu);
+			zestaw_spriteow.insert(make_pair(id_przycisku + "typ" + to_string(i), el_ukladu));
+		}
+	}
+};
+
+class UkladSlotyPulapki : public Uklad {
+private:
+	RysowaneObiekty *baza_obiektow;
+	void buduj_uklad(RysowaneObiekty *& baza_ob) {
+		baza_obiektow = baza_ob;
+		// wczytywanie tla
+		el_ukladu = baza_obiektow->zwroc_sprite_tlo();
+		mapuj_sprite(sklep_x, WYMIAR_EKRANU_Y, 1280, 0, el_ukladu);
+		zestaw_spriteow.insert(make_pair(id_tla, el_ukladu));
+		// b_start
+		el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
+		mapuj_sprite(przycisk_x, przycisk_y, 0, 600, el_ukladu);
+		ustaw_sprite(WYMIAR_EKRANU_X - przycisk_x - odstep_el, odstep_el, el_ukladu);
+		zestaw_spriteow.insert(make_pair(id_przycisku + "strt", el_ukladu));
+		// b_back
+		el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
+		mapuj_sprite(przycisk_x, przycisk_y, 0, 300, el_ukladu);
+		ustaw_sprite(WYMIAR_EKRANU_X - przycisk_x * 2 - odstep_el * 2, odstep_el, el_ukladu);
+		zestaw_spriteow.insert(make_pair(id_przycisku + "back", el_ukladu));
+		// pole_liczbowe
+		// num0
+		dodaj_pole_cyfry(baza_obiektow, 0);
+		// num1
+		dodaj_pole_cyfry(baza_obiektow, 1);
+		// num2
+		dodaj_pole_cyfry(baza_obiektow, 2);
+		// num3
+		dodaj_pole_cyfry(baza_obiektow, 3);
+	}
+
+public:
+	UkladSlotyPulapki(RysowaneObiekty *&baza_obiektow) {
+		buduj_uklad(baza_obiektow);
+	}
+	void ustaw_zestaw_przyciskow(int ilosc, vector<int>) {
 		for (int i = 0; i < ilosc; i++) {
 			el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
 			mapuj_sprite(przycisk_x, przycisk_y, 0, 800 + i*przycisk_y, el_ukladu);
@@ -264,6 +358,7 @@ private:
 		zestaw_spriteow.insert(make_pair(id_pola_tekstowego, el_ukladu));
 	}
 public:
+
 	UkladInfo(RysowaneObiekty *&baza_obiektow) {
 		buduj_uklad(baza_obiektow);
 	}
@@ -305,9 +400,36 @@ public:
 	}
 };
 
+class UkladGra : public Uklad {
+private:
+	RysowaneObiekty *rysowane_obiekty;
+	void buduj_uklad(RysowaneObiekty *&baza_obiektow) {
+		// b_start
+		el_ukladu = baza_obiektow->zwroc_sprite_przycisk();
+		mapuj_sprite(przycisk_x, przycisk_y, 0, 650, el_ukladu);
+		ustaw_sprite(WYMIAR_EKRANU_X - przycisk_x - odstep_el, odstep_el, el_ukladu);
+		zestaw_spriteow.insert(make_pair(id_przycisku + "endg", el_ukladu));
+	}
+
+public:
+	UkladGra(RysowaneObiekty *&baza_obiektow) {
+		buduj_uklad(baza_obiektow);
+		rysowane_obiekty = baza_obiektow;
+	}
+	void ustaw_zestaw_przyciskow(int ilosc, vector<int> typy_przyciskow) {
+		// ustawia male przyciski akcji
+		for (int i = 0; i < ilosc; i++) {
+			el_ukladu = rysowane_obiekty->zwroc_sprite_p_akcji();
+			mapuj_sprite(m_przycisk_x, m_przycisk_y, 0, 0 + typy_przyciskow[i] * m_przycisk_x, el_ukladu);
+			ustaw_sprite(870 + (m_przycisk_x + odstep_el)*i, 650 , el_ukladu);
+			zestaw_spriteow.insert(make_pair(id_przycisku + "act" + to_string(i), el_ukladu));
+		}
+	}
+};
+
 class ManagerUkladow {
 private:
-
+	RysowaneObiekty *rysowane_obiekty;
 	Uklad *uklad_tmp;
 	Uklad *zestaw_ukladow[ILOSC_UKLADOW];
 	// mapa ukladow:
@@ -333,16 +455,31 @@ private:
 		zestaw_ukladow[0] = uklad_tmp;
 		uklad_tmp = new UkladSklep(baza_ob);
 		zestaw_ukladow[1] = uklad_tmp;
-		uklad_tmp = new UkladKupWieze(baza_ob);
+		uklad_tmp = new UkladSlotyWieze(baza_ob);
 		zestaw_ukladow[2] = uklad_tmp;
-		uklad_tmp = new UkladWybierzWieze(baza_ob);
+		uklad_tmp = new UkladSlotyPulapki(baza_ob);
+		zestaw_ukladow[3] = uklad_tmp;
+		uklad_tmp = new UkladTypyWieze(baza_ob);
 		zestaw_ukladow[4] = uklad_tmp;
+		uklad_tmp = new UkladTypyPulapki(baza_ob);
+		zestaw_ukladow[5] = uklad_tmp;
+		uklad_tmp = new UkladGra(baza_ob);
+		zestaw_ukladow[6] = uklad_tmp;
 		uklad_tmp = new UkladInfo(baza_ob);
 		zestaw_ukladow[7] = uklad_tmp;
 	}
 
 public:
+	~ManagerUkladow() {
+		for (int i = 0; i < ILOSC_UKLADOW; i++) {		
+			if (zestaw_ukladow[i]) {
+				delete zestaw_ukladow[i];
+			}
+		}
+	}
+
 	ManagerUkladow(RysowaneObiekty *&baza_obiektow) {
+		rysowane_obiekty = baza_obiektow;
 		wczytaj_uklady(baza_obiektow);
 	}
 	map<string, sf::Sprite> zwroc_uklad(int index_ukladu) {
@@ -358,8 +495,8 @@ public:
 	void przewin_strone_w_ukladzie(int index_ukladu, int kierunek) {
 		zestaw_ukladow[index_ukladu]->przewin_strone(kierunek);
 	}
-	void ustaw_ilosc_przyciskow_sklepu(int index_ukladu, int ilosc) {
-		zestaw_ukladow[index_ukladu]->ustaw_przyciski_sklepu(ilosc);
+	void ustaw_ilosc_zestawu_przyciskow(int index_ukladu, int ilosc, vector<int> typy_przyciskow = {0}) {
+		zestaw_ukladow[index_ukladu]->ustaw_zestaw_przyciskow(ilosc, typy_przyciskow);
 	}
 
 	void ustaw_wartosc_pola_liczbowego(int index_ukladu, string wartosc) {

@@ -36,6 +36,12 @@
     <ClInclude Include="Uklady.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sklep.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObiektyAktywne.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

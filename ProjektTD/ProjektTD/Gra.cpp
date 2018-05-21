@@ -3,6 +3,8 @@
 #include "WczytywanieMapy.h"
 #include "RysowaneObiekty.h"
 #include "Uklady.h"
+#include "Sklep.h"
+#include "ObiektyAktywne.h"
 
 using namespace std;
 
@@ -40,11 +42,19 @@ public:
 class WejscieWyjscie {
 private:
 
-	int poziom_gry = 0;
+	int aktualna_mapa = 0;
 	int aktualny_uklad = 0;
+
+	map<string, sf::Sprite> mapa_gry;	// mapa pol jest przechowoywana w pamieci - dla wiekszej wydajnosci
+										// tlo mozna odswiezac "na zlecenie" - nie w trybie ciaglym
+
 	TranslatorWejscia *translator_wejscia = new TranslatorWejscia();
 	ManagerUkladow *manager_ukladow;
 	Plik_map *mapy;
+
+	ManagerObiektowAktywnych *mgr_ob_akt;
+	ManagerSklepu *manager_sklepu;	
+
 	// mapa ukladow:
 	// nr      |   0  |   1  |    2     |     3    |     4      |     5      |  6   |   7  |
 	// klawisz | menu | shop | buy turr | buy trap | chose turr | chose trap | game | info |
@@ -63,23 +73,29 @@ private:
 	// B    12 |      |   0  |    1     |    1     |      2     |      3     |      |   0  |
 	pair<int, string> mapa_ukladow[ILOSC_KLAWISZY][ILOSC_UKLADOW] =
 	{
-		{ { -4,"strt" },{ -5,"turr" },{ -6,"slt0" },{ 5,"null" },{ 4,"typ0" },{ 0,"null" },{ 0,"null" },{ -1,"prev" } },
-		{ { 1,"cont" },{ 5,"trap" },{ -6,"slt1" },{ 5,"null" },{ 4,"typ1" },{ 0,"null" },{ 0,"null" },{ -2,"next" } },
-		{ { 7,"info" },{ 1,"null" },{ -6,"slt2" },{ 5,"null" },{ 4,"typ2" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { -3,"quit" },{ 1,"null" },{ -6,"slt3" },{ 5,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 1,"null" },{ -6,"slt4" },{ 5,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 1,"null" },{ -6,"slt5" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 1,"null" },{ -6,"slt6" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 1,"null" },{ -6,"slt7" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 1,"null" },{ -6,"slt8" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 1,"null" },{ -6,"slt9" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 6,"strt" },{ 6,"strt" },{ 6,"null" },{ 6,"strt" },{ 6,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 1,"null" },{ 2,"null" },{ 0,"null" },{ 4,"null" },{ 0,"null" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },{ 0,"back" },{ 1,"back" },{ 1,"null" },{ 2,"back" },{ 3,"null" },{ 0,"null" },{ 0,"back" } },
+		// menu         wybor ob     slot wiezy     slot trap   typ wiezy     typ trap      rozgrywka   info
+		{ { -4,"strt" }, { -5,"turr" }, {-6,"slt0" },  { -9,"slt0" },  { -7,"typ0" },{ -10,"typ0" },{ -12,"act0" },{ -1,"prev" } },
+		{ { -99,"cont" },{ -8,"trap" }, {-6,"slt1" },  { -9,"slt1" },  { -7,"typ1" },{ -10,"typ1" },{ -12,"act1" },{ -2,"next" } },
+		{ { 7,"info" },  { 1,"null" },  {  -6,"slt2" },{ -9,"slt2" },  { -7,"typ2" },{ -10,"typ2" },{ -12,"act2" },{ 7,"null" } },
+		{ { -3,"quit" }, { 1,"null" },  { -6,"slt3" }, { -9,"slt3" },  { 4,"null" }, { 0,"null" },  { -12,"act3" },{ 7,"null" } },
+		{ { 0,"null" },  { 1,"null" },  {  -6,"slt4" },{ -9,"slt4" },  { 4,"null" }, { 0,"null" },  { -12,"act4" },{ 7,"null" } },
+		{ { 0,"null" },  { 1,"null" },  {  -6,"slt5" },{ -9,"slt5" },  { 4,"null" }, { 0,"null" },  { 0,"null" },{ 7,"null" } },
+		{ { 0,"null" },  { 1,"null" },  {  -6,"slt6" },{ -9,"slt6" },  { 4,"null" }, { 0,"null" },  { 0,"null" },{ 7,"null" } },
+		{ { 0,"null" },  { 1,"null" },  {  -6,"slt7" },{ -9,"slt7" },  { 4,"null" }, { 0,"null" },  { 0,"null" },{ 7,"null" } },
+		{ { 0,"null" },  { 1,"null" },  {  -6,"slt8" },{ -9,"slt8" },  { 4,"null" }, { 0,"null" },  { 0,"null" },{ 7,"null" } },
+		{ { 0,"null" },  { 1,"null" },  {  -6,"slt9" },{ -9,"slt9" },  { 4,"null" }, { 0,"null" },  { 0,"null" },{ 7,"null" } },
+		{ { 0,"null" },  { -11,"strt" },{ -11,"strt" },{ -11,"strt" }, { -11,"strt" },{ -11,"strt" },{ 0,"null" },{ 7,"null" } },
+		{ { 0,"null" },  { 1,"null" },  {   2,"null" },{ 3,"null" },   { 4,"null" }, { 5,"null" },  { 0,"endg" },{ 7,"null" } },
+		{ { 0,"null" },  { 0,"back" },  {   1,"back" },{ 1,"back" },   { 2,"back" }, { 3,"back" },  { 0,"null" },{ 0,"back" } },
 	};
 
-	void wykonaj_akcje(int nr_akcji, int &flaga_wyjscia) {
+	void wykonaj_akcje(int nr_akcji, string nazwa_przycisku, int &flaga_zd_spec) {
 		switch (nr_akcji) {
+		case -99: // przycisk continue - TEST DRUGIEJ MAPY
+			aktualny_uklad = 1;
+			aktualna_mapa = 1;
+			flaga_zd_spec = 2;
+			break;
 		case -1: // przycisk prev w ukladzie info
 			manager_ukladow->przewin_strone_w_ukladzie(aktualny_uklad, -1);
 			break;
@@ -87,33 +103,73 @@ private:
 			manager_ukladow->przewin_strone_w_ukladzie(aktualny_uklad, 1);
 			break;
 		case -3: // przycisk quit w ukladzie menu 
-			flaga_wyjscia = 1;
+			flaga_zd_spec = 1;
 			break;
 		case -4: // przycisk start w ukladzie menu
 			aktualny_uklad = 1;
-			poziom_gry = 0;
+			aktualna_mapa = 0;
+			flaga_zd_spec = 2;
 			break;
 		case -5: // przycisk turr w ukladzie sklep
 			aktualny_uklad = 2;
-			manager_ukladow->ustaw_ilosc_przyciskow_sklepu(aktualny_uklad, mapy->zwroc_ilosc_wiez_na_mapie(poziom_gry));			
+			mgr_ob_akt->wybrano_wieze(true);
+			// w momencie przjescia do interfejsu wyboru wierzy generowana jest ilosc potrzebnych przyciskow
+			manager_ukladow->ustaw_ilosc_zestawu_przyciskow(aktualny_uklad, mapy->zwroc_wieze_na_mapie(aktualna_mapa).size());
 			break;
 		case -6: // przycisk slot w ukladzie wieze_sklep
 			aktualny_uklad = 4;
-			manager_ukladow->ustaw_ilosc_przyciskow_sklepu(aktualny_uklad, ILOSC_TYPOW_WIEZ);
+			manager_ukladow->ustaw_ilosc_zestawu_przyciskow(aktualny_uklad, ILOSC_TYPOW_WIEZ);
+			mgr_ob_akt->pobierz_kod_slotu_typu(nazwa_przycisku);		
+			break;
+		case -7: // przycisk typu w ukladzie wieze_typ
+			aktualny_uklad = 4;
+			mgr_ob_akt->pobierz_kod_slotu_typu(nazwa_przycisku);
+			manager_sklepu->wykonaj_zakup();
+			break;
+		case -8: // przycisk trap w ukladzie sklep
+			aktualny_uklad = 3;
+			mgr_ob_akt->wybrano_wieze(false);
+			// generowanie odpowiedniej ilosci przyciskow
+			manager_ukladow->ustaw_ilosc_zestawu_przyciskow(aktualny_uklad, mapy->zwroc_pulapki_na_mapie(aktualna_mapa).size());	
+			break;
+		case - 9: // przycisk slot w ukladzie pulapki_sklep
+			aktualny_uklad = 5;
+			// generowanie ilosci przyciskow typu
+			manager_ukladow->ustaw_ilosc_zestawu_przyciskow(aktualny_uklad, ILOSC_TYPOW_PULAPEK);
+			mgr_ob_akt->pobierz_kod_slotu_typu(nazwa_przycisku);
+			break;
+		case -10: // przycisk typ w ukldzie pulapki_typ
+			aktualny_uklad = 5; 
+			mgr_ob_akt->pobierz_kod_slotu_typu(nazwa_przycisku);
+			manager_sklepu->wykonaj_zakup();
+			break;
+		case -11: // przycisk start w dowolnym menu
+			aktualny_uklad = 6;
+			// budowanie zestawu przyciskow akcji
+			manager_ukladow->ustaw_ilosc_zestawu_przyciskow(aktualny_uklad,
+				mgr_ob_akt->zwroc_typy_ustawionych_pulapek().size(), mgr_ob_akt->zwroc_typy_ustawionych_pulapek());
+			//TESTOWANIE
+
+			mgr_ob_akt->test_ustaw_wroga();
+
+			break;
+		case -12: // przycisk akcji w grze
+			aktualny_uklad = 6;
+			mgr_ob_akt->test_ustaw_wroga();
 			break;
 		default:
 			break;
 		}	
 	}
 	map<string, sf::Sprite> zbuduj_warstwe_renderowania() {
-		// test funkcji pola liczbowego
-		manager_ukladow->ustaw_wartosc_pola_liczbowego(aktualny_uklad, "1234");
-		// test funkcji pola liczbowego
-		if (aktualny_uklad > 0 && aktualny_uklad < 7) {
-			// jesli uklady sa ukladami z tlem w postaci mapy
-			map<string, sf::Sprite> map_tmp = mapy->zwroc_mape(poziom_gry)->zwroc_pola_na_mapie();
+
+		if (aktualny_uklad != 0 && aktualny_uklad != 7) {
+			manager_ukladow->ustaw_wartosc_pola_liczbowego(aktualny_uklad, manager_sklepu->zwroc_pule_pieniedzy());
+			map<string, sf::Sprite> map_tmp = mapa_gry;
 			map<string, sf::Sprite> map_tmp2 = manager_ukladow->zwroc_uklad(aktualny_uklad);
+			map<string, sf::Sprite> map_tmp3 = mgr_ob_akt->zwroc_spritey_obiektow();
 			map_tmp.insert(map_tmp2.begin(), map_tmp2.end());
+			map_tmp.insert(map_tmp3.begin(), map_tmp3.end());
 			return map_tmp;
 		}
 		else {
@@ -123,13 +179,64 @@ private:
 	
 	}
 public:
-
-	WejscieWyjscie(ManagerUkladow *&mgr_ukladow, Plik_map *&plik_map) {
+	WejscieWyjscie(ManagerUkladow *&mgr_ukladow, Plik_map *&plik_map, RysowaneObiekty *&rys_ob) {
 		manager_ukladow = mgr_ukladow;
 		mapy = plik_map;
+		mgr_ob_akt = new ManagerObiektowAktywnych(mapy, aktualna_mapa, rys_ob);
+		manager_sklepu = new ManagerSklepu(mgr_ob_akt, mapy, aktualna_mapa);
+		mapa_gry = mapy->zwroc_mape(aktualna_mapa)->zwroc_pola_na_mapie();
 	}
 
-	void przyjmij_wejscie(sf::Event ev1, map<string, sf::Sprite> &warstwa_renderowania, int &flaga_wyjscia) {
+	~WejscieWyjscie() {
+		delete translator_wejscia;
+		delete mgr_ob_akt;
+		delete manager_sklepu;
+	}
+
+	void odswiez_mape_gry() {
+		mapa_gry = mapy->zwroc_mape(aktualna_mapa)->zwroc_pola_na_mapie();
+	}
+
+	void odswiez_aniamcje(int &timer, map<string,sf::Sprite> &warstwa_renderowania) {
+		if (timer < CZESTOTLIWOSC_ODSWIEZANIA_ANIM) {
+			timer++;
+		}
+		else {
+			// odswiez
+			mgr_ob_akt->test_animuj_wrogow();
+			warstwa_renderowania = zbuduj_warstwe_renderowania();
+			// resetuj timer
+			timer = 0;
+		}	
+	}
+
+	void odswiez_przemieszczenie_wrogow(int &timer, map<string, sf::Sprite> &warstwa_renderowania) {
+		if (timer < CZESTOTLIWOSC_ODSWIEZANIA_RUCH) {
+			timer++;
+		}
+		else {
+			// odswiez
+			mgr_ob_akt->odswiez_pozycje_na_sciezce_wrogow();
+			mgr_ob_akt->wrogowie_na_koncu();	// decyduje o zakonczeniu gry
+			mgr_ob_akt->ustal_wektory_przemieszczenia_i_rotacje_wrogow();
+			mgr_ob_akt->przemiesc_wrogow();			
+			warstwa_renderowania = zbuduj_warstwe_renderowania();
+			// resetuj timer
+			timer = 0;
+		}
+	}
+
+	void reset_odswiez(ManagerUkladow *&mgr_ukladow, Plik_map *&plik_map, RysowaneObiekty *&rys_ob, map<string,sf::Sprite> &warstwa_renderowania) {
+		delete mgr_ob_akt;
+		delete manager_sklepu;
+		manager_ukladow = mgr_ukladow;
+		mgr_ob_akt = new ManagerObiektowAktywnych(mapy, aktualna_mapa, rys_ob);
+		manager_sklepu = new ManagerSklepu(mgr_ob_akt, mapy, aktualna_mapa);
+		odswiez_mape_gry();
+		warstwa_renderowania = zbuduj_warstwe_renderowania();
+	}
+
+	void przyjmij_wejscie(sf::Event ev1, map<string, sf::Sprite> &warstwa_renderowania, int &flaga_zd_spec) {
 		if (ev1.type == sf::Event::KeyPressed || ev1.type == sf::Event::KeyReleased) {
 			int kod_klawisza = translator_wejscia->tlumacz_wejscie(ev1.key.code);
 			if (kod_klawisza != -1) {
@@ -153,7 +260,7 @@ public:
 						aktualny_uklad = mapa_ukladow[kod_klawisza][aktualny_uklad].first;
 					}
 					else { // gdy nalezy wykonac modyfikacje w aktualnym ukladzie
-						wykonaj_akcje(nr_akcji, flaga_wyjscia);
+						wykonaj_akcje(nr_akcji, nazwa_przycisku, flaga_zd_spec);
 					}
 					// zwraca uklad
 					warstwa_renderowania = zbuduj_warstwe_renderowania();
@@ -165,18 +272,20 @@ public:
 };
 
 int main() {
-	int flaga_wyjscia = 0; // okresla czy mozna zamknac okno
+	int flaga_zdarzenia_specjalnego = 0; // 1 - zamyka okno 2 - resetuje gre i buduje nowy render
+	int licznik_klatek = 0;
+	int licznik_klatek2 = 0;
 
+	// obiekty pasywne
 	RysowaneObiekty *baza_obiektow = new RysowaneObiekty();
 	Plik_map *mapy = new Plik_map(baza_obiektow);
+
+	// obiekty aktywne
 	ManagerUkladow *manager_ukladow = new ManagerUkladow(baza_obiektow);
-	WejscieWyjscie *wejscie_wyjscie = new WejscieWyjscie(manager_ukladow, mapy);
-
-	//map<string, sf::Sprite> warstwa_renderowana2 = mapy->zwroc_mape(0)->zwroc_pola_na_mapie();
-
-	//TranslatorWejscia *translator_wejscia = new TranslatorWejscia();
+	WejscieWyjscie *wejscie_wyjscie = new WejscieWyjscie(manager_ukladow, mapy, baza_obiektow);
 	map<string, sf::Sprite> warstwa_renderowana = manager_ukladow->zwroc_uklad(0);
 
+	// test zwracanych bledow
 	if (mapy->blad_pliku_map) {
 		cout << "Blad wczytywania pliku map." << endl;
 		return 0;
@@ -191,14 +300,25 @@ int main() {
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			wejscie_wyjscie->przyjmij_wejscie(event, warstwa_renderowana, flaga_wyjscia);
-			if (flaga_wyjscia == 1) {
+			wejscie_wyjscie->przyjmij_wejscie(event, warstwa_renderowana, flaga_zdarzenia_specjalnego);
+			//----------zdarzenia sepcjalne regulowane flagami
+			if (flaga_zdarzenia_specjalnego == 1) {
 				window.close();
 			}
+			else if (flaga_zdarzenia_specjalnego == 2) {
+				delete manager_ukladow;
+				manager_ukladow = new ManagerUkladow(baza_obiektow);
+				wejscie_wyjscie->reset_odswiez(manager_ukladow, mapy, baza_obiektow, warstwa_renderowana);
+				flaga_zdarzenia_specjalnego = 0;
+			}		
 		}
 
 		// ---------- renderowanie
 		window.clear();
+		// ---------- odswiezanie animacji
+		wejscie_wyjscie->odswiez_aniamcje(licznik_klatek, warstwa_renderowana);
+		wejscie_wyjscie->odswiez_przemieszczenie_wrogow(licznik_klatek2, warstwa_renderowana);
+		// ---------- rysowanie
 		for (auto i = warstwa_renderowana.begin(); i != warstwa_renderowana.end(); i++) {
 			window.draw(i->second);
 		}

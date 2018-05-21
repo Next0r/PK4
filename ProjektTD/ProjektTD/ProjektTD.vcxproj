@@ -152,7 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Baza.h" />
+    <ClInclude Include="ObiektyAktywne.h" />
     <ClInclude Include="RysowaneObiekty.h" />
+    <ClInclude Include="Sklep.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Uklady.h" />

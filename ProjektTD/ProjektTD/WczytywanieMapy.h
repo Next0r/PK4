@@ -119,7 +119,7 @@ private:
 public:
 
 	Wczytana_mapa() {
-		sciezka.resize(MAX_ROZMIAR_SCIEZKI);
+		//sciezka.resize(MAX_ROZMIAR_SCIEZKI);
 	}
 
 	map<string, sf::Sprite> zwroc_pola_na_mapie() {
@@ -176,13 +176,16 @@ private:
 					if (slowo_tmp == "XX" || slowo_tmp == "QQ" || slowo_tmp == "@@") {
 						mapa_tmp->wczytaj_pole(j, i, slowo_tmp, rysowane_obiekty);
 					}
-					else if (slowo_tmp[0] == '$' && slowo_tmp[1] - 48 >= 0 && slowo_tmp[1] - 48 <= 9 && slowo_tmp.length() == 2) {
+					else if (slowo_tmp[0] == '$' && slowo_tmp[1] - '0' >= 0 && slowo_tmp[1] - '0' <= 9 && slowo_tmp.length() == 2) {
 						mapa_tmp->wczytaj_pole(j, i, slowo_tmp, rysowane_obiekty);
 						mapa_tmp->wczytaj_lokacje_wiezy(j, i);
 					}
-					else if (slowo_tmp[0] - 48 >= 0 && slowo_tmp[0] - 48 <= 9 && slowo_tmp[1] - 48 >= 0 && slowo_tmp[1] - 48 <= 9 && slowo_tmp.length() == 2) {
+					else if (slowo_tmp[0] - '0' >= 0 && slowo_tmp[0] - '0' <= 9 && slowo_tmp[1] - '0' >= 0 && slowo_tmp[1] - '0' <= 9 && slowo_tmp.length() == 2) {
 						mapa_tmp->wczytaj_pole(j, i, slowo_tmp, rysowane_obiekty);
 						int liczba_tmp = stoi(slowo_tmp);
+						if (liczba_tmp + 1 > mapa_tmp->sciezka.size()) {
+							mapa_tmp->sciezka.resize(liczba_tmp + 1);
+						}
 						mapa_tmp->sciezka[liczba_tmp] = make_pair(j,i);
 					}
 					else {
@@ -339,8 +342,24 @@ public:
 		return mapy_w_grze[index_mapy];
 	}
 
-	int zwroc_ilosc_wiez_na_mapie(int index_mapy) {
-		return mapy_w_grze[index_mapy]->lokacje_wiez.size();
+	vector<pair<int,int>> zwroc_wieze_na_mapie(int index_mapy) {
+		return mapy_w_grze[index_mapy]->lokacje_wiez;
+	}
+
+	vector<pair<int, int>> zwroc_pulapki_na_mapie(int index_mapy) {
+		vector<pair<int, int>> tmp;
+		for (auto i = mapy_w_grze[index_mapy]->pola_pulapek.begin(); i != mapy_w_grze[index_mapy]->pola_pulapek.end(); i++) {
+			tmp.push_back(mapy_w_grze[index_mapy]->sciezka[*i]);
+		}
+		return tmp;
+	}
+
+	vector<pair<int, int>> zwroc_sciezke(int index_mapy) {
+		return mapy_w_grze[index_mapy]->sciezka;
+	}
+
+	int zwroc_pule_pieniedzy(int index_mapy) {
+		return mapy_w_grze[index_mapy]->pula_pieniedzy;
 	}
 
 	~Plik_map() {

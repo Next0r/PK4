@@ -1,0 +1,4 @@
+﻿  wyr_reg2.cpp
+d:\users\michal\documents\github\pk4\wyr_reg2\wyr_reg2\wyr_reg2.cpp(72): warning C4129: '.': unrecognized character escape sequence
+d:\users\michal\documents\github\pk4\wyr_reg2\wyr_reg2\wyr_reg2.cpp(150): warning C4018: '>': signed/unsigned mismatch
+  wyr_reg2.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\wyr_reg2\Debug\wyr_reg2.exe

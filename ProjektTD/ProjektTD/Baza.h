@@ -19,6 +19,10 @@
 #define SCIEZKA_PLIK_TX_OBIEKTY  "Textures/objs.png"
 #define SCIEZKA_PLIK_TX_TEKST  "Textures/tekst.png"
 #define SCIEZKA_KROJ_TEKSTU  "Fonts/joystix_monospace.ttf"
+#define SCIEZKA_PLIK_TX_WIEZ  "Textures/turrets.png"
+#define SCIEZKA_PLIK_TX_PULAPEK "Textures/traps.png"
+#define SCIEZKA_PLIK_TX_P_AKCJI "Textures/action_buttons.png"
+#define SCIEZKA_PLIK_TX_WROGOWIE "Textures/enemies.png"
 
 #define ZDEFINIOWANA_ILOSC_FAL_WROGOW  5
 #define MAX_ILOSC_WROGOW_W_FALI  10
@@ -38,6 +42,11 @@
 #define WYMIAR_POLA_GRY 80
 #define MAX_ROZMIAR_SCIEZKI 100
 
+#define DLUGOSC_POLA_LICZBOWEGO 4
+
+#define CZESTOTLIWOSC_ODSWIEZANIA_ANIM 6 // 60hz / ->6 = 10
+#define CZESTOTLIWOSC_ODSWIEZANIA_RUCH 3 // 60hz / ->2 = 30  wrogowie przemieszczaja sie 20 razy na sekunde
+#define SZYBKOSC_PRZEMIESZCZENIA_WROGOW 2 // wrogowie pokonuja 2 px na odswiezenie -> jedno pole w 2 sekundy
 
 
 using namespace std;
