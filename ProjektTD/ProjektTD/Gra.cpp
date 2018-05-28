@@ -85,7 +85,7 @@ private:
 		{ { 0,"null" },  { 1,"null" },  {  -6,"slt8" },{ -9,"slt8" },  { 4,"null" }, { 0,"null" },  { 0,"null" },{ 7,"null" } },
 		{ { 0,"null" },  { 1,"null" },  {  -6,"slt9" },{ -9,"slt9" },  { 4,"null" }, { 0,"null" },  { 0,"null" },{ 7,"null" } },
 		{ { 0,"null" },  { -11,"strt" },{ -11,"strt" },{ -11,"strt" }, { -11,"strt" },{ -11,"strt" },{ 0,"null" },{ 7,"null" } },
-		{ { 0,"null" },  { 1,"null" },  {   2,"null" },{ 3,"null" },   { 4,"null" }, { 5,"null" },  { 0,"endg" },{ 7,"null" } },
+		{ { 0,"null" },  { 1,"null" },  {   2,"null" },{ 3,"null" },   { 4,"null" }, { 5,"null" },  { -13,"endg" },{ 7,"null" } },
 		{ { 0,"null" },  { 0,"back" },  {   1,"back" },{ 1,"back" },   { 2,"back" }, { 3,"back" },  { 0,"null" },{ 0,"back" } },
 	};
 
@@ -143,19 +143,19 @@ private:
 			mgr_ob_akt->pobierz_kod_slotu_typu(nazwa_przycisku);
 			manager_sklepu->wykonaj_zakup();
 			break;
-		case -11: // przycisk start w dowolnym menu
+		case -11: // przycisk start w dowolnym menu gry
 			aktualny_uklad = 6;
 			// budowanie zestawu przyciskow akcji
 			manager_ukladow->ustaw_ilosc_zestawu_przyciskow(aktualny_uklad,
-				mgr_ob_akt->zwroc_typy_ustawionych_pulapek().size(), mgr_ob_akt->zwroc_typy_ustawionych_pulapek());
-			//TESTOWANIE
-
-			mgr_ob_akt->test_ustaw_wroga();
+			mgr_ob_akt->zwroc_typy_ustawionych_pulapek().size(), mgr_ob_akt->zwroc_typy_ustawionych_pulapek());
+			flaga_zd_spec = 3; // rozpoczecie generowania wrogow jest zdarzeniem specjalnym
 
 			break;
 		case -12: // przycisk akcji w grze
 			aktualny_uklad = 6;
-			mgr_ob_akt->test_ustaw_wroga();
+			break;
+		case -13: // przycisk end w rozgrywce
+			aktualny_uklad = 0;
 			break;
 		default:
 			break;
@@ -203,14 +203,20 @@ public:
 		}
 		else {
 			// odswiez
-			mgr_ob_akt->test_animuj_wrogow();
+			// --------- animacja wrogow
+			mgr_ob_akt->animuj_wrogow();
+			mgr_ob_akt->animuj_usuwaj_efekty();
 			warstwa_renderowania = zbuduj_warstwe_renderowania();
 			// resetuj timer
 			timer = 0;
 		}	
 	}
+	
+	void generuj_wrogow(bool &flaga_generacji, int &licznik1, int &licznik2) {
+		mgr_ob_akt->tworz_fale_wrogow(flaga_generacji, licznik1, licznik2);
+	}
 
-	void odswiez_przemieszczenie_wrogow(int &timer, map<string, sf::Sprite> &warstwa_renderowania) {
+	void odswiez_przemieszczenie_wrogow_ramki_atak(int &timer, map<string, sf::Sprite> &warstwa_renderowania) {
 		if (timer < CZESTOTLIWOSC_ODSWIEZANIA_RUCH) {
 			timer++;
 		}
@@ -219,7 +225,16 @@ public:
 			mgr_ob_akt->odswiez_pozycje_na_sciezce_wrogow();
 			mgr_ob_akt->wrogowie_na_koncu();	// decyduje o zakonczeniu gry
 			mgr_ob_akt->ustal_wektory_przemieszczenia_i_rotacje_wrogow();
-			mgr_ob_akt->przemiesc_wrogow();			
+			mgr_ob_akt->przemiesc_wrogow_synchronizuj_ramki();	
+
+			// ---------- realizowanie ataku
+
+			mgr_ob_akt->przeladuj_wieze();
+
+			// --------- animacja wiezy (obrot)
+			mgr_ob_akt->animuj_wyceluj_wieze();
+			mgr_ob_akt->wykonaj_atak_wiezami();
+
 			warstwa_renderowania = zbuduj_warstwe_renderowania();
 			// resetuj timer
 			timer = 0;
@@ -269,21 +284,29 @@ public:
 		}
 	}
 
+	bool uklad_rozgrywki() {
+		if (aktualny_uklad == 6) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 };
 
 int main() {
 	int flaga_zdarzenia_specjalnego = 0; // 1 - zamyka okno 2 - resetuje gre i buduje nowy render
-	int licznik_klatek = 0;
+	int licznik_klatek1 = 0;
 	int licznik_klatek2 = 0;
+	int licznik_klatek3 = 0; 
+	int licznik_klatek4 = 0;
+
+	bool flaga_generacji_wrogow; // false oznacza, ze wrogowie w fali sie skonczyli
+										// jesli wrogowie sie skonczyli i zaden nie znajduje sie na mapie gracz wygral
 
 	// obiekty pasywne
 	RysowaneObiekty *baza_obiektow = new RysowaneObiekty();
 	Plik_map *mapy = new Plik_map(baza_obiektow);
-
-	// obiekty aktywne
-	ManagerUkladow *manager_ukladow = new ManagerUkladow(baza_obiektow);
-	WejscieWyjscie *wejscie_wyjscie = new WejscieWyjscie(manager_ukladow, mapy, baza_obiektow);
-	map<string, sf::Sprite> warstwa_renderowana = manager_ukladow->zwroc_uklad(0);
 
 	// test zwracanych bledow
 	if (mapy->blad_pliku_map) {
@@ -291,33 +314,47 @@ int main() {
 		return 0;
 	}
 
+	// obiekty aktywne
+	ManagerUkladow *manager_ukladow = new ManagerUkladow(baza_obiektow);
+	WejscieWyjscie *wejscie_wyjscie = new WejscieWyjscie(manager_ukladow, mapy, baza_obiektow);
+	map<string, sf::Sprite> warstwa_renderowana = manager_ukladow->zwroc_uklad(0);
+
+
 	sf::RenderWindow window(sf::VideoMode(WYMIAR_EKRANU_X, WYMIAR_EKRANU_Y), NAZWA_OKNA);
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(CZESTOTLIWOSC_ODSWIEZANIA_OBRAZU);
 
 	while (window.isOpen())
 	{
-		//----------obsluga wejscia
+		// ---------- obsluga wejscia
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			wejscie_wyjscie->przyjmij_wejscie(event, warstwa_renderowana, flaga_zdarzenia_specjalnego);
-			//----------zdarzenia sepcjalne regulowane flagami
+			// ---------- zdarzenia sepcjalne regulowane flagami
 			if (flaga_zdarzenia_specjalnego == 1) {
+				// ---------- zdarzenie: zamkniecie okna
 				window.close();
 			}
 			else if (flaga_zdarzenia_specjalnego == 2) {
+				// ---------- zdarzenie: rozgrywka nowego poziomu 
 				delete manager_ukladow;
 				manager_ukladow = new ManagerUkladow(baza_obiektow);
 				wejscie_wyjscie->reset_odswiez(manager_ukladow, mapy, baza_obiektow, warstwa_renderowana);
 				flaga_zdarzenia_specjalnego = 0;
-			}		
+			}
+			
 		}
 
 		// ---------- renderowanie
 		window.clear();
-		// ---------- odswiezanie animacji
-		wejscie_wyjscie->odswiez_aniamcje(licznik_klatek, warstwa_renderowana);
-		wejscie_wyjscie->odswiez_przemieszczenie_wrogow(licznik_klatek2, warstwa_renderowana);
+		// ---------- gdy trwa gra
+		if (wejscie_wyjscie->uklad_rozgrywki() == true) {
+			// ---------- generowanie wrogow
+			wejscie_wyjscie->generuj_wrogow(flaga_generacji_wrogow, licznik_klatek3, licznik_klatek4);
+			// ---------- odswiezanie animacji
+			wejscie_wyjscie->odswiez_aniamcje(licznik_klatek1, warstwa_renderowana);
+			wejscie_wyjscie->odswiez_przemieszczenie_wrogow_ramki_atak(licznik_klatek2, warstwa_renderowana);
+		}
 		// ---------- rysowanie
 		for (auto i = warstwa_renderowana.begin(); i != warstwa_renderowana.end(); i++) {
 			window.draw(i->second);

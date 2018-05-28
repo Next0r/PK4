@@ -210,44 +210,64 @@ private:
 				}
 				else {
 					vector<int> fala_tmp;
-					if (stoi(slowo_tmp)) {
-						liczba_tmp = stoi(slowo_tmp);
-						if (liczba_tmp > 0 && liczba_tmp <= MAX_ILOSC_WROGOW_W_FALI) {
-							fala_tmp.push_back(liczba_tmp);
-						}
-						else {
-							return false;
-						}
+
+					// ---------- wczytywanie ilosci
+					try {
+						stoi(slowo_tmp);
+					}
+					catch (invalid_argument) {
+						// nie mozna dokonac konwersji
+						return false;
+					}
+					liczba_tmp = stoi(slowo_tmp);
+					if (liczba_tmp > 0 && liczba_tmp <= MAX_ILOSC_WROGOW_W_FALI) {
+						fala_tmp.push_back(liczba_tmp);
 					}
 					else {
 						return false;
 					}
+
+					// ----------
+
+					// ---------- wczytywanie typu
+
+					slowo_tmp = czytaj_slowo();					
+					try {
+						stoi(slowo_tmp);
+					}
+					catch (invalid_argument) {
+						// nie mozna dokonac konwersji
+						return false;
+					}
+					liczba_tmp = stoi(slowo_tmp);
+					if (liczba_tmp >= 0 && liczba_tmp < ILOSC_TYPOW_WROGOW) {
+						fala_tmp.push_back(liczba_tmp);
+					}
+					else {
+						return false;
+					}
+					// ----------
+
+					// ---------- wczytywanie czasu
+
 					slowo_tmp = czytaj_slowo();
-					if (stoi(slowo_tmp)) {
-						liczba_tmp = stoi(slowo_tmp);
-						if (liczba_tmp >= 0 && liczba_tmp < ILOSC_TYPOW_WROGOW) {
-							fala_tmp.push_back(liczba_tmp);
-						}
-						else {
-							return false;
-						}
+					try {
+						stoi(slowo_tmp);
+					}
+					catch (invalid_argument) {
+						// nie mozna dokonac konwersji
+						return false;
+					}
+					liczba_tmp = stoi(slowo_tmp);
+					if (liczba_tmp >= 0 && liczba_tmp <= MAX_ODSTEP_CZASOWY_FAL) {
+						fala_tmp.push_back(liczba_tmp);
 					}
 					else {
 						return false;
 					}
-					slowo_tmp = czytaj_slowo();
-					if (stoi(slowo_tmp)) {
-						liczba_tmp = stoi(slowo_tmp);
-						if (liczba_tmp >= 0 && liczba_tmp <= MAX_ODSTEP_CZASOWY_FAL) {
-							fala_tmp.push_back(liczba_tmp);
-						}
-						else {
-							return false;
-						}
-					}
-					else {
-						return false;
-					}
+
+					// ----------
+
 					mapa_tmp->fale_wrogow.push_back(fala_tmp);
 
 				}
@@ -360,6 +380,10 @@ public:
 
 	int zwroc_pule_pieniedzy(int index_mapy) {
 		return mapy_w_grze[index_mapy]->pula_pieniedzy;
+	}
+
+	vector<vector<int>> zwroc_fale_wrogow(int index_mapy) {
+		return mapy_w_grze[index_mapy]->fale_wrogow;
 	}
 
 	~Plik_map() {

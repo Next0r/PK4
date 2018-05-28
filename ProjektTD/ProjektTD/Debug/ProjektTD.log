@@ -2,19 +2,32 @@
 d:\users\michal\documents\github\pk4\projekttd\projekttd\wczytywaniemapy.h(34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 d:\users\michal\documents\github\pk4\projekttd\projekttd\wczytywaniemapy.h(186): warning C4018: '>': signed/unsigned mismatch
 d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(268): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(286): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(308): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(316): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(331): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(436): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(448): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(453): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(459): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(478): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(483): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(117): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(126): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(145): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(152): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(365): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(444): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(469): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(611): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(627): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(643): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(687): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(705): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(727): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(736): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(751): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(930): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(946): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(952): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(958): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(961): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(969): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(988): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(993): warning C4018: '<': signed/unsigned mismatch
 d:\users\michal\documents\github\pk4\projekttd\projekttd\sklep.h(107): warning C4018: '<': signed/unsigned mismatch
 d:\users\michal\documents\github\pk4\projekttd\projekttd\sklep.h(112): warning C4018: '<': signed/unsigned mismatch
   ProjektTD.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\ProjektTD\Debug\ProjektTD.exe

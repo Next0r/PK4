@@ -15,6 +15,8 @@ private:
 	sf::Sprite pulapka;
 	sf::Sprite p_akcji;
 	sf::Sprite wrogowie;
+	sf::Sprite efekty;
+	sf::Sprite ramki;
 
 	sf::Texture t_przyciski;
 	sf::Texture t_tlo;
@@ -25,6 +27,9 @@ private:
 	sf::Texture t_pulapka;
 	sf::Texture t_p_akcji;
 	sf::Texture t_wrogowie;
+	sf::Texture t_efekty;
+	sf::Texture t_ramki;
+
 
 	sf::Font kroj_tekstu;
 
@@ -39,6 +44,8 @@ public:
 		t_pulapka.loadFromFile(SCIEZKA_PLIK_TX_PULAPEK);
 		t_p_akcji.loadFromFile(SCIEZKA_PLIK_TX_P_AKCJI);
 		t_wrogowie.loadFromFile(SCIEZKA_PLIK_TX_WROGOWIE);
+		t_efekty.loadFromFile(SCIEZKA_PLIK_TX_EFEKTY);
+		t_ramki.loadFromFile(SCIEZKA_PLIK_TX_RAMKI);
 		kroj_tekstu.loadFromFile(SCIEZKA_KROJ_TEKSTU);
 
 		przycisk.setTexture(t_przyciski);
@@ -51,6 +58,8 @@ public:
 		pulapka.setTexture(t_pulapka);
 		p_akcji.setTexture(t_p_akcji);
 		wrogowie.setTexture(t_wrogowie);
+		efekty.setTexture(t_efekty);
+		ramki.setTexture(t_ramki);
 	}
 
 	sf::Sprite zwroc_sprite_przycisk() {
@@ -85,5 +94,11 @@ public:
 	}
 	sf::Sprite zwroc_sprite_wrogowie() {
 		return wrogowie;
+	}
+	sf::Sprite zwroc_sprite_efekty() {
+		return efekty;
+	}
+	sf::Sprite zwroc_sprite_ramki() {
+		return ramki;
 	}
 };

@@ -12,9 +12,9 @@ XX XX XX XX @@ QQ QQ QQ QQ QQ QQ QQ QQ QQ QQ QQ
 XX XX XX XX @@ QQ QQ QQ QQ QQ QQ QQ QQ QQ QQ QQ
 
 foe:	
-	5 1 5
-	5 2 10
-	10 3 20
+	2 0 0
+	4 2 2
+	3 1 4
 	empty
 	empty
 
@@ -42,11 +42,11 @@ XX XX XX XX @@ QQ QQ QQ QQ QQ QQ QQ QQ QQ QQ QQ
 XX XX XX XX @@ QQ QQ QQ QQ QQ QQ QQ QQ QQ QQ QQ
 
 foe:	
-	5 1 5
-	5 2 10
-	empty
-	empty
-	empty
+	2 0 4
+	1 2 4
+	1 1 4
+	1 0 4
+	3 2 4
 
 traps:
 	empty
@@ -55,4 +55,4 @@ traps:
 	empty
 	empty
 
-money: 500
+money: 600
