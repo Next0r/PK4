@@ -34,6 +34,13 @@ private:
 		sprite_pola.setPosition(sf::Vector2f(x*WYMIAR_POLA_GRY, y*WYMIAR_POLA_GRY));
 	}
 public:
+	sf::Sprite zwroc_sprite_pola() {
+		return sprite_pola;
+	}
+	void wypisz_pole() {
+		cout << kod_pola;
+	}
+
 	Pole_mapy(string kod, RysowaneObiekty *&rysowane_obiekty, int pos_x, int pos_y){
 		kod_pola = kod;
 		x = pos_x;
@@ -41,18 +48,12 @@ public:
 		mapuj_pole_wg_kodu(rysowane_obiekty);
 		ustaw_pole(pos_x, pos_y);
 	}
-	sf::Sprite zwroc_sprite_pola() {
-		return sprite_pola;
-	}
-	void wypisz_pole() {
-		cout << kod_pola;
-	}
 };
 
 class Wczytana_mapa {
 	friend class Plik_map;
 private:
-	string kodowanie_pola = "0pole"; // kodowanie pola okresla warstwe na ktorej pola beda renderowane
+	string kodowanie_pola = "A_pole"; // kodowanie pola okresla warstwe na ktorej pola beda renderowane
 	string nazwa_mapy;
 	Pole_mapy *mapa[9][16];
 	vector <vector<int>> fale_wrogow;
@@ -117,11 +118,6 @@ private:
 	}
 	
 public:
-
-	Wczytana_mapa() {
-		//sciezka.resize(MAX_ROZMIAR_SCIEZKI);
-	}
-
 	map<string, sf::Sprite> zwroc_pola_na_mapie() {
 		oznacz_pola_wiez_pulapek();
 		map<string, sf::Sprite> map_tmp;
@@ -148,14 +144,12 @@ private:
 		}
 		return true;
 	}
-
 	string czytaj_slowo() {
 		string slowo_tmp;
 		plik_map >> slowo_tmp;
 		plik_map.ignore();
 		return slowo_tmp;
 	}
-
 	bool inst_level() {
 		if (czytaj_slowo() == "level:") {
 			mapa_tmp = new Wczytana_mapa;
@@ -166,7 +160,6 @@ private:
 		}
 		return false;
 	}
-
 	bool inst_map() {
 		if (czytaj_slowo() == "map:") {
 			for (int i = 0; i < 9; i++) {
@@ -197,7 +190,6 @@ private:
 		}
 		return false;
 	}
-
 	bool inst_foe() {
 		string slowo_tmp;
 		int liczba_tmp;		
@@ -276,7 +268,6 @@ private:
 		}
 		return false;
 	}
-
 	bool inst_traps() {
 		string slowo_tmp;
 		int liczba_tmp;
@@ -306,7 +297,6 @@ private:
 		return false;
 	
 	}
-
 	bool inst_money() {
 		if (czytaj_slowo() == "money:") {
 			string slowo_tmp = czytaj_slowo();
@@ -322,7 +312,6 @@ private:
 		}
 		return false;
 	}
-
 	bool czytaj_plik() {
 		while (!plik_map.eof()) {
 			if (!inst_level()) {
@@ -348,7 +337,38 @@ private:
 
 public:
 	bool blad_pliku_map = false;
-
+	
+	Wczytana_mapa* zwroc_mape(int index_mapy) {
+		if (mapy_w_grze.size() > index_mapy) {
+			return mapy_w_grze[index_mapy];
+		}
+		else {
+			return nullptr;
+		}
+	}
+	vector<pair<int,int>> zwroc_wieze_na_mapie(int index_mapy) {
+		return mapy_w_grze[index_mapy]->lokacje_wiez;
+	}
+	vector<pair<int, int>> zwroc_pulapki_na_mapie(int index_mapy) {
+		vector<pair<int, int>> tmp;
+		for (auto i = mapy_w_grze[index_mapy]->pola_pulapek.begin(); i != mapy_w_grze[index_mapy]->pola_pulapek.end(); i++) {
+			tmp.push_back(mapy_w_grze[index_mapy]->sciezka[*i]);
+		}
+		return tmp;
+	}
+	vector<pair<int, int>> zwroc_sciezke(int index_mapy) {
+		return mapy_w_grze[index_mapy]->sciezka;
+	}
+	int zwroc_pule_pieniedzy(int index_mapy) {
+		return mapy_w_grze[index_mapy]->pula_pieniedzy;
+	}
+	vector<vector<int>> zwroc_fale_wrogow(int index_mapy) {
+		return mapy_w_grze[index_mapy]->fale_wrogow;
+	}
+	string zwroc_nazwe_mapy(int index_mapy) {
+		return mapy_w_grze[index_mapy]->nazwa_mapy;
+	}
+	
 	Plik_map(RysowaneObiekty *&rys_ob) {
 		rysowane_obiekty = rys_ob;
 		otworz_plik(SCIEZKA_PLIKU_MAP);
@@ -357,35 +377,6 @@ public:
 		}
 
 	}
-
-	Wczytana_mapa* zwroc_mape(int index_mapy) {
-		return mapy_w_grze[index_mapy];
-	}
-
-	vector<pair<int,int>> zwroc_wieze_na_mapie(int index_mapy) {
-		return mapy_w_grze[index_mapy]->lokacje_wiez;
-	}
-
-	vector<pair<int, int>> zwroc_pulapki_na_mapie(int index_mapy) {
-		vector<pair<int, int>> tmp;
-		for (auto i = mapy_w_grze[index_mapy]->pola_pulapek.begin(); i != mapy_w_grze[index_mapy]->pola_pulapek.end(); i++) {
-			tmp.push_back(mapy_w_grze[index_mapy]->sciezka[*i]);
-		}
-		return tmp;
-	}
-
-	vector<pair<int, int>> zwroc_sciezke(int index_mapy) {
-		return mapy_w_grze[index_mapy]->sciezka;
-	}
-
-	int zwroc_pule_pieniedzy(int index_mapy) {
-		return mapy_w_grze[index_mapy]->pula_pieniedzy;
-	}
-
-	vector<vector<int>> zwroc_fale_wrogow(int index_mapy) {
-		return mapy_w_grze[index_mapy]->fale_wrogow;
-	}
-
 	~Plik_map() {
 		delete(mapa_tmp);
 	}

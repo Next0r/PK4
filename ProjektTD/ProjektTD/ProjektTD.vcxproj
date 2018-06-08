@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Baza.h" />
+    <ClInclude Include="UkladyStare.h" />
     <ClInclude Include="ObiektyAktywne.h" />
     <ClInclude Include="RysowaneObiekty.h" />
     <ClInclude Include="Sklep.h" />

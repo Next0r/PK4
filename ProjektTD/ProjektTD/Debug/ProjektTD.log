@@ -1,33 +1,73 @@
-﻿  Gra.cpp
+﻿  stdafx.cpp
+  Gra.cpp
 d:\users\michal\documents\github\pk4\projekttd\projekttd\wczytywaniemapy.h(34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\wczytywaniemapy.h(186): warning C4018: '>': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(117): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(126): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(145): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(152): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(365): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(444): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(469): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(611): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(627): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(643): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(687): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(705): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(727): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(736): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(751): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\wczytywaniemapy.h(179): warning C4018: '>': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\wczytywaniemapy.h(342): warning C4018: '>': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(10): warning C4305: 'initializing': truncation from 'double' to 'const float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(101): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(141): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(148): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(149): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(152): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(183): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(192): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(193): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(194): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(225): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(226): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(227): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(228): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(244): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(245): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(271): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(284): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(307): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(309): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(312): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(315): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(328): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\uklady.h(339): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(114): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(128): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(154): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(160): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(312): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(340): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(344): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(364): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(369): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(380): warning C4018: '>': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(389): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(400): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(410): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(415): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(515): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(572): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(586): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(601): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(644): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(661): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(682): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(690): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(704): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(712): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(871): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(887): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(913): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(924): warning C4018: '<': signed/unsigned mismatch
 d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(930): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(946): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(952): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(958): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(961): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(969): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(988): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(993): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\sklep.h(107): warning C4018: '<': signed/unsigned mismatch
-d:\users\michal\documents\github\pk4\projekttd\projekttd\sklep.h(112): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(936): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(939): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(947): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\sklep.h(94): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\sklep.h(99): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\gra.cpp(35): warning C4018: '<': signed/unsigned mismatch
+d:\users\michal\documents\github\pk4\projekttd\projekttd\obiektyaktywne.h(909): warning C4715: 'ManagerObiektowAktywnych::uzyj_pulapki': not all control paths return a value
   ProjektTD.vcxproj -> D:\Users\Michal\Documents\GitHub\PK4\ProjektTD\Debug\ProjektTD.exe

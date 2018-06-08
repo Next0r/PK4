@@ -26,13 +26,11 @@ private:
 	int pula_pieniedzy;
 	vector<Sprzedawany*> zestaw_sprzedawanych_wiez;
 	vector<Sprzedawany*> zestaw_sprzedawanych_pulapek;
-
 	void utworz_sprzedawane_pulapki() {
 		zestaw_sprzedawanych_pulapek.push_back(new Sprzedawany("Pulapka1", 100));
 		zestaw_sprzedawanych_pulapek.push_back(new Sprzedawany("Pulapka2", 150));
 		zestaw_sprzedawanych_pulapek.push_back(new Sprzedawany("Pulapka3", 300));
 	}
-
 	void utworz_sprzedawane_wieze() {
 		zestaw_sprzedawanych_wiez.push_back(new Sprzedawany("Wieza1", 200));
 		zestaw_sprzedawanych_wiez.push_back(new Sprzedawany("Wieza2", 400));
@@ -40,7 +38,6 @@ private:
 	}
 
 public:
-
 	void wykonaj_zakup() {
 		int typ_kupowany = manager_ob_akt->zwroc_typ_obiektu();
 		int typ_ob_na_pozycji = manager_ob_akt->czy_slot_jest_zajety();
@@ -82,19 +79,10 @@ public:
 			}
 		}
 	}
-
-	string zwroc_pule_pieniedzy() {
-		string pula_tmp = to_string(pula_pieniedzy);
-		int dlugosc_slowa = pula_tmp.size();
-		if (dlugosc_slowa < DLUGOSC_POLA_LICZBOWEGO) {
-			// jesli pula pieniedzy jest ciagiem mniejszym od 4		
-			for (int i = 0; i < DLUGOSC_POLA_LICZBOWEGO - dlugosc_slowa; i++) {
-				pula_tmp = "0" + pula_tmp;
-			}
-		}
-		return pula_tmp;
+	int zwroc_pule_pieniedzy() {
+		return pula_pieniedzy;
 	}
-
+	
 	ManagerSklepu(ManagerObiektowAktywnych *&mgr, Plik_map *&wczytane_mapy, int aktulana_mapa) {
 		manager_ob_akt = mgr;
 		mapy = wczytane_mapy;
@@ -102,7 +90,6 @@ public:
 		utworz_sprzedawane_wieze();
 		utworz_sprzedawane_pulapki();
 	}
-
 	~ManagerSklepu() {
 		for (int i = 0; i < zestaw_sprzedawanych_wiez.size(); i++) {
 			if (zestaw_sprzedawanych_wiez[i] != nullptr) {
@@ -115,5 +102,4 @@ public:
 			}
 		}
 	}
-
 };
