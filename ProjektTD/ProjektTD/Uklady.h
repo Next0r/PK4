@@ -17,21 +17,19 @@ protected:
 	const int wymiar_okna_x = 450;
 	const int wymiar_okna_y = 300;
 	const float skala_okna = 1.5;
-	
-	const int poziom_przyciemnienia = 160;
 
-	string kodowanie_przycisku = "C_bttn";
-	string kodowanie_przycisku_okna = "Z_bttn";
-	string kodowanie_przycisku_akcji = "U_bttn";
-	string kodowanie_tla = "B_bg";
-	string kodowanie_pola_tekstowego = "D_pt";
-	string kodowanie_pola_liczbowego = "D_nm";
+	string kodowanie_przycisku = "C bttn";
+	string kodowanie_przycisku_okna = "Z bttn";
+	string kodowanie_przycisku_akcji = "U bttn";
+	string kodowanie_tla = "B bg";
+	string kodowanie_pola_tekstowego = "D pt";
+	string kodowanie_pola_liczbowego = "D nm";
 	string kodowanie_potwierdzenia = "conf";
 	string kodowanie_odrzucenia = "rect";
-	string kodowanie_liter = "T_chr";
-	string kodowanie_w_przyciemnienia = "X_efx";
-	string kodowanie_okna = "Y_win";
-	string kodowanie_interfaceu = "U_int";
+	string kodowanie_liter = "T chr";
+	string kodowanie_w_przyciemnienia = "X efx";
+	string kodowanie_okna = "Y win";
+	string kodowanie_interfaceu = "U int";
 
 	sf::Sprite el_ukladu;
 	RysowaneObiekty *rys_ob;
@@ -40,12 +38,20 @@ protected:
 	map<string, sf::Sprite>::iterator it_okna;
 	map<string, sf::Sprite>::iterator it_przyciemnienia;
 
-	void przyciemnienie_tla() {
+	void przyciemnienie_tla(string warstwa = "X_", int poziom_przyciemnienia = 160) {
 		sf::Sprite efekt = rys_ob->zwroc_sprite_tlo();
 		mapuj_sprite(WYMIAR_EKRANU_X, WYMIAR_EKRANU_Y, 0, 0, efekt);
 		ustaw_sprite(0, 0, efekt);
 		efekt.setColor(sf::Color(0, 0, 0, poziom_przyciemnienia));
-		it_przyciemnienia = elementy_w_ukladzie.insert(make_pair(kodowanie_w_przyciemnienia, efekt)).first;
+		if (warstwa == "X_") {
+			it_przyciemnienia = elementy_w_ukladzie.insert(make_pair(kodowanie_w_przyciemnienia, efekt)).first;
+		}
+		else {
+			string kodowanie_tmp = kodowanie_w_przyciemnienia;
+			kodowanie_tmp[0] = warstwa[0];
+			kodowanie_tmp[1] = warstwa[1];
+			it_przyciemnienia = elementy_w_ukladzie.insert(make_pair(kodowanie_tmp, efekt)).first;
+		}
 	}
 	void mapuj_sprite(int wymiar_x, int wymiar_y, int tex_pos_x, int tex_pos_y, sf::Sprite &mapowany) {
 		mapowany.setTextureRect(sf::IntRect(tex_pos_x, tex_pos_y, wymiar_x, wymiar_y));
@@ -164,6 +170,7 @@ class UkladMenu :public Uklad {
 public:
 	UkladMenu(RysowaneObiekty *&rys_o) :Uklad(rys_o) {
 		wstaw_tlo(WYMIAR_EKRANU_X, WYMIAR_EKRANU_Y, 0, 0, 0);
+		przyciemnienie_tla("BA", 80);
 		wstaw_standardowy_przycisk(WYMIAR_EKRANU_X / 2, WYMIAR_EKRANU_Y / 5, 0, "strt");
 		wstaw_standardowy_przycisk(WYMIAR_EKRANU_X / 2, WYMIAR_EKRANU_Y / 5 * 2, 1, "cont");
 		wstaw_standardowy_przycisk(WYMIAR_EKRANU_X / 2, WYMIAR_EKRANU_Y / 5 * 3, 2, "info");
@@ -189,6 +196,7 @@ public:
 	UkladInfo(RysowaneObiekty *&rys_o) :Uklad(rys_o) {
 		wstaw_tlo(WYMIAR_EKRANU_X, WYMIAR_EKRANU_Y, 0, 0, 0);
 		dodaj_pole_tekstowe();
+		przyciemnienie_tla("BA");
 		wstaw_standardowy_przycisk(159, 675, 6, "prev", 0.74, 0.74);
 		wstaw_standardowy_przycisk(457, 675, 7, "next", 0.74, 0.74);
 		wstaw_standardowy_przycisk(1121, 675, 5, "back", 0.74, 0.74);
@@ -236,8 +244,13 @@ private:
 	int pole_x = 275;
 	int pole_y = 170;
 	int pos_x = 200;
-	int pos_y = 475;
+	int pos_y = 470;
 	int map_x = 400;
+	int odstep_y = 12;
+	int odstep_gora = 45;
+	float skala_przyciskow_1 = 0.6;
+	float skala_przyciskow_2 = 0.5;
+	int kolumna_odstep_x = 3;
 public:
 	UkladSklepWybor(RysowaneObiekty *&rys_o) :Uklad(rys_o) {
 		wstaw_tlo(400, WYMIAR_EKRANU_Y, 0, 0, WYMIAR_EKRANU_X);
@@ -253,15 +266,15 @@ public:
 
 		if (ilosc_przyciskow <= 5) {
 			for (int i = 0; i < ilosc_przyciskow; i++) {
-				wstaw_standardowy_przycisk(pos_x, 45 + 70 * i, 15 + i + przesuniecie, nazwa_przycisku + to_string(i), 0.5, 0.5);
+				wstaw_standardowy_przycisk(pos_x, odstep_gora + ((wymiar_przycisku_y+odstep_y)*skala_przyciskow_1) * i, 15 + i + przesuniecie, nazwa_przycisku + to_string(i), skala_przyciskow_1, skala_przyciskow_1);
 			}
 		}
 		else {
 			for (int i = 0; i < 5; i++) {
-				wstaw_standardowy_przycisk(pos_x / 2 + 3, 45 + 70 * i, 15 + i + przesuniecie, nazwa_przycisku + to_string(i), 0.5, 0.5);
+				wstaw_standardowy_przycisk(pos_x / 2 + kolumna_odstep_x, odstep_gora + ((wymiar_przycisku_y + odstep_y)*skala_przyciskow_2) * i, 15 + i + przesuniecie, nazwa_przycisku + to_string(i), skala_przyciskow_2, skala_przyciskow_2);
 			}
 			for (int i = 5; i < ilosc_przyciskow; i++) {
-				wstaw_standardowy_przycisk(pos_x / 2 + pos_x - 3, 45 + 70 * (i-5), 15 + i + przesuniecie, nazwa_przycisku + to_string(i), 0.5, 0.5);
+				wstaw_standardowy_przycisk(pos_x / 2 + pos_x - kolumna_odstep_x, odstep_gora + ((wymiar_przycisku_y + odstep_y)*skala_przyciskow_2) * (i-5), 15 + i + przesuniecie, nazwa_przycisku + to_string(i), skala_przyciskow_2, skala_przyciskow_2);
 			}
 		}
 	}
@@ -357,17 +370,6 @@ private:
 	}
 
 public:
-	~ManagerUkladow() {
-		for (int i = 0; i < ILOSC_UKLADOW; i++) {
-			if (zestaw_ukladow[i]) {
-				delete zestaw_ukladow[i];
-			}
-		}
-	}
-	ManagerUkladow(RysowaneObiekty *&rys_ob) {
-		zestaw_ukladow.resize(ILOSC_UKLADOW);
-		wczytaj_uklady(rys_ob);
-	}
 	map<string, sf::Sprite> zwroc_uklad(int index_ukladu) {
 		return zestaw_ukladow[index_ukladu]->zwroc_uklad();
 	}
@@ -450,5 +452,17 @@ public:
 	void dodaj_el_interfaceu_rozgrywki(string nazwa_rozgrywki) {
 		dynamic_cast<UkladRozgrywka*>(zestaw_ukladow[6])->utworz_nazwe_mapy(nazwa_rozgrywki);
 		dynamic_cast<UkladRozgrywka*>(zestaw_ukladow[6])->dodaj_ramke_interfaceu();
+	}
+
+	~ManagerUkladow() {
+		for (int i = 0; i < ILOSC_UKLADOW; i++) {
+			if (zestaw_ukladow[i]) {
+				delete zestaw_ukladow[i];
+			}
+		}
+	}
+	ManagerUkladow(RysowaneObiekty *&rys_ob) {
+		zestaw_ukladow.resize(ILOSC_UKLADOW);
+		wczytaj_uklady(rys_ob);
 	}
 };

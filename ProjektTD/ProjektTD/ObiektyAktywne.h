@@ -248,8 +248,7 @@ public:
 	int zwroc_obrazania_zdrowia() {
 		return obrazenia_zdrowia;
 	}
-
-
+	
 	Pulapka(int pos_x, int pos_y, int typ, RysowaneObiekty *&rys_o): ObiektNaMapie(rys_o) {
 		sprite = rys_ob->zwroc_sprite_pulapki();
 		pozycja_x = pos_x;
@@ -341,6 +340,7 @@ private:
 	}
 	void zniszcz_wroga(ObiektNaMapie *wrog, vector<ObiektNaMapie*> &wrogowie) {
 		if (dynamic_cast<Wrog*>(wrog)->zwroc_zdrowie() <= 0) {
+			dodaj_efekt_specjalny(0, 0, wrog->zwroc_pozycje().first, wrog->zwroc_pozycje().second, 9, 0.0);
 			for (int i = 0; i < wrogowie.size(); i++) {
 				if (wrogowie[i] == wrog) {
 					wrogowie.erase(wrogowie.begin() + i);
@@ -389,6 +389,7 @@ private:
 		dynamic_cast<Wrog*>(wrog)->odejmij_pacerz(dynamic_cast<Pulapka*>(pulapka)->zwroc_obrazania_pacerza());
 		dynamic_cast<Wrog*>(wrog)->dodaj_ramke(1); // dodaje do wroga ramke obnizonego pancerza
 	}
+
 public:
 	vector<Efekt*> zwroc_efekty_specjalne() {
 		return efekty_specjalne;
@@ -461,6 +462,13 @@ public:
 	Atak(RysowaneObiekty *&r_ob) {
 		rys_ob = r_ob;
 	}
+	~Atak() {
+		for (auto i = efekty_specjalne.begin(); i != efekty_specjalne.end(); i++) {
+			if ((*i) != nullptr) {
+				delete (*i);
+			}
+		}
+	}
 };
 
 class ManagerObiektowAktywnych {
@@ -476,17 +484,15 @@ private:
 	Plik_map *mapy;
 	Atak *atak;
 
-	vector<ObiektNaMapie*> obiekty;
-
 	vector<ObiektNaMapie*> wrogowie_na_mapie;
 	vector<ObiektNaMapie*> wieze_na_mapie;
 	vector<ObiektNaMapie*> pulapki_na_mapie;
 
-	string kodowanie_wroga = "F_emy";
-	string kodowanie_pulapki = "E_trp";
-	string kodowanie_wiezy = "E_turr";
-	string kodowanie_ramki = "G_frm";
-	string kodowanie_efektu = "H_efx";
+	string kodowanie_wroga = "F emy";
+	string kodowanie_pulapki = "E trp";
+	string kodowanie_wiezy = "E turr";
+	string kodowanie_ramki = "G frm";
+	string kodowanie_efektu = "H efx";
 
 
 	vector <pair<int, int>> sciezka_danej_mapy; // wielokrotnie uzywana - dlatego kopiowana do pamieci
@@ -504,8 +510,7 @@ private:
 		int pos_start_x = mapy->zwroc_sciezke(index_mapy)[0].first * WYMIAR_POLA_GRY;
 		int pos_start_y = mapy->zwroc_sciezke(index_mapy)[0].second * WYMIAR_POLA_GRY;
 		// ustaw danego wroga na starcie
-		obiekty.push_back(new Wrog(pos_start_x, pos_start_y, typ_wroga, rys_ob));
-		wrogowie_na_mapie.push_back(obiekty.back());
+		wrogowie_na_mapie.push_back(new Wrog(pos_start_x, pos_start_y, typ_wroga, rys_ob));
 	}
 	float oblicz_dlugosc_wektora(pair<int, int> A, pair<int, int> B) {
 		double dlugosc;
@@ -811,16 +816,14 @@ public:
 			int pos_y;
 			pos_x = mapy->zwroc_wieze_na_mapie(index_mapy).at(nr_slotu).first * WYMIAR_POLA_GRY;
 			pos_y = mapy->zwroc_wieze_na_mapie(index_mapy).at(nr_slotu).second * WYMIAR_POLA_GRY;		
-			obiekty.push_back(new Wieza(pos_x, pos_y, nr_typu, rys_ob));
-			wieze_na_mapie[nr_slotu] = obiekty.back();
+			wieze_na_mapie[nr_slotu] = new Wieza(pos_x, pos_y, nr_typu, rys_ob);
 		}
 		else {
 			int pos_x;
 			int pos_y;
 			pos_x = mapy->zwroc_pulapki_na_mapie(index_mapy).at(nr_slotu).first * WYMIAR_POLA_GRY;
 			pos_y = mapy->zwroc_pulapki_na_mapie(index_mapy).at(nr_slotu).second * WYMIAR_POLA_GRY;
-			obiekty.push_back(new Pulapka(pos_x, pos_y, nr_typu, rys_ob));
-			pulapki_na_mapie[nr_slotu] = obiekty.back();
+			pulapki_na_mapie[nr_slotu] = new Pulapka(pos_x, pos_y, nr_typu, rys_ob);
 		}
 	}
 	void usun_obiekt() {
@@ -903,9 +906,9 @@ public:
 					return true;
 				}
 			}
-			// nie udalo sie uzyc poprawnie pulpaki
-			return false;
+			// nie udalo sie uzyc poprawnie pulpaki		
 		}
+		return false;
 	}
 	
 	vector<int> zwroc_typy_ustawionych_pulapek() {
@@ -962,11 +965,22 @@ public:
 		atak = new Atak(rys_ob);
 	}
 	~ManagerObiektowAktywnych() {
-		//for (int i = 0; i < obiekty.size(); i++) {
-		//	if (obiekty[i]) {
-		//		delete obiekty[i];
-		//	}
-		//}
+		delete atak;
+		for (auto i = wieze_na_mapie.begin(); i != wieze_na_mapie.end(); i++) {
+			if ((*i) != nullptr) {
+				delete (*i);
+			}
+		}
+		for (auto i = pulapki_na_mapie.begin(); i != pulapki_na_mapie.end(); i++) {
+			if ((*i) != nullptr) {
+				delete (*i);
+			}
+		}
+		for (auto i = wrogowie_na_mapie.begin(); i != wrogowie_na_mapie.end(); i++) {
+			if ((*i) != nullptr) {
+				delete (*i);
+			}
+		}
 	}
 };
 

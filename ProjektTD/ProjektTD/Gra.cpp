@@ -6,6 +6,10 @@
 #include "Sklep.h"
 #include "ObiektyAktywne.h"
 
+// testowanie wyciekow pamieci
+#include <vld.h>
+
+
 using namespace std;
 
 class TranslatorWejscia {
@@ -69,11 +73,12 @@ private:
 
 	map<string, sf::Sprite> mapa_gry;
 
-	TranslatorWejscia *translator_wejscia = new TranslatorWejscia();
+	TranslatorWejscia *translator_wejscia;
 	ManagerUkladow *manager_ukladow;
 	Plik_map *mapy;
 	ManagerObiektowAktywnych *mgr_ob_akt;
-	ManagerSklepu *manager_sklepu;	
+	ManagerSklepu *manager_sklepu;
+	RysowaneObiekty *rys_ob;
 
 	pair<int, string> mapa_ukladow[ILOSC_KLAWISZY][ILOSC_UKLADOW] =
 	{
@@ -264,17 +269,22 @@ private:
 	
 	}
 public:
-	WejscieWyjscie(ManagerUkladow *&mgr_ukladow, Plik_map *&plik_map, RysowaneObiekty *&rys_ob) {
+	WejscieWyjscie(ManagerUkladow *&mgr_ukladow, Plik_map *&plik_map, RysowaneObiekty *&rys_o) {
 		manager_ukladow = mgr_ukladow;
 		mapy = plik_map;
+		rys_ob = rys_o;
 		mgr_ob_akt = new ManagerObiektowAktywnych(mapy, aktualna_mapa, rys_ob);
 		manager_sklepu = new ManagerSklepu(mgr_ob_akt, mapy, aktualna_mapa);
+		translator_wejscia = new TranslatorWejscia();
 		mapa_gry = mapy->zwroc_mape(aktualna_mapa)->zwroc_pola_na_mapie();
 	}
 	~WejscieWyjscie() {
 		delete translator_wejscia;
+		delete manager_ukladow;
+		delete mapy;
 		delete mgr_ob_akt;
 		delete manager_sklepu;
+		delete rys_ob;
 	}
 	void odswiez_mape_gry() {
 		mapa_gry = mapy->zwroc_mape(aktualna_mapa)->zwroc_pola_na_mapie();
@@ -417,6 +427,8 @@ int main() {
 	// test zwracanych bledow
 	if (mapy->blad_pliku_map) {
 		cout << "Blad wczytywania pliku map." << endl;
+		delete mapy;
+		delete baza_obiektow;
 		return 0;
 	}
 
@@ -425,7 +437,7 @@ int main() {
 	WejscieWyjscie *wejscie_wyjscie = new WejscieWyjscie(manager_ukladow, mapy, baza_obiektow);
 	map<string, sf::Sprite> warstwa_renderowana = manager_ukladow->zwroc_uklad(0);
 
-	sf::RenderWindow window(sf::VideoMode(WYMIAR_EKRANU_X, WYMIAR_EKRANU_Y), NAZWA_OKNA);
+	sf::RenderWindow window(sf::VideoMode(WYMIAR_EKRANU_X, WYMIAR_EKRANU_Y), NAZWA_OKNA, sf::Style::Default);
 	window.setFramerateLimit(CZESTOTLIWOSC_ODSWIEZANIA_OBRAZU);
 
 	while (window.isOpen())
@@ -482,6 +494,8 @@ int main() {
 		}
 		window.display();
 	}
+
+	delete wejscie_wyjscie;
 
 	return 0;
 }

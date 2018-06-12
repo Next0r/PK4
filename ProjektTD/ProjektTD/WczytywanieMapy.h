@@ -53,7 +53,7 @@ public:
 class Wczytana_mapa {
 	friend class Plik_map;
 private:
-	string kodowanie_pola = "A_pole"; // kodowanie pola okresla warstwe na ktorej pola beda renderowane
+	string kodowanie_pola = "A pole"; // kodowanie pola okresla warstwe na ktorej pola beda renderowane
 	string nazwa_mapy;
 	Pole_mapy *mapa[9][16];
 	vector <vector<int>> fale_wrogow;
@@ -127,6 +127,14 @@ public:
 			}	
 		}
 		return map_tmp;
+	}
+
+	~Wczytana_mapa() {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 16; j++) {
+				delete mapa[i][j];
+			}
+		}
 	}
 };
 
@@ -378,6 +386,10 @@ public:
 
 	}
 	~Plik_map() {
-		delete(mapa_tmp);
+		for (auto i = mapy_w_grze.begin(); i != mapy_w_grze.end(); i++) {
+			if ((*i) != nullptr) {
+				delete (*i);
+			}
+		}
 	}
 };
