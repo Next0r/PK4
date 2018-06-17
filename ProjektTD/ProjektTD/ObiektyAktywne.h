@@ -124,7 +124,7 @@ public:
 	vector<sf::Sprite> zwroc_ramki() {
 		return ramki;
 	}
-	int zwroc_zdrowie() {
+	float zwroc_zdrowie() {
 		return zdrowie;
 	}
 	void odejmij_pacerz(float wartosc) {
